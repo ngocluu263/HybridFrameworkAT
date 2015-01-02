@@ -6,3 +6,5 @@ HybridFramework
 @Version: 2.0
 
 Selenium (WebDriver) Automation Framework.
+Environment used for this project:
+ 
