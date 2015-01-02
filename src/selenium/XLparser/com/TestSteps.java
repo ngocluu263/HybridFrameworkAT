@@ -51,6 +51,7 @@ public class TestSteps {
 							Row current_row = sh.getRow(r);
 							
 							//To get date from excel file
+							@SuppressWarnings("unused")
 							Cell cell = current_row.getCell(c);
 							SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 						
@@ -61,22 +62,25 @@ public class TestSteps {
 							//Debug: System.out.println("Value of Type = " + type);
 							
 							if(c==0 && type==1) {
-								String id = current_row.getCell(c).getStringCellValue();
-								if(id.equals(stepID)) {
+								String id = current_row.getCell(c).getStringCellValue();								
+								if(stepID.equals(id)) {
 									found = true;
-									step_row = r+1;
-									
-									
-									
-									break;
+									step_row = r+2;
+									System.out.println("Here");						
 								}
 							}
 							
+						} if (found == true) {
+							break;
 						}
 					}
 					
+					System.out.println("Broken");
 					//Iterate Rows and Read complete input XL file
 					for(int i=step_row; i<12; i++) {
+						//TestStepsCounter
+						int s=0;
+						//Debug: System.out.println(step_row);
 						TestSteps.add(new ArrayList());				
 						//Iterate Columns
 						for(int j=0; j<cols; j++) {
@@ -96,27 +100,26 @@ public class TestSteps {
 								//Debug: System.out.println("Value of Type = " + type);
 								
 								if(type == 3){
-									//System.out.println("Empty Cell");
-									((ArrayList)TestSteps.get(i)).add("");
+									System.out.println("Empty Cell");
+									((ArrayList)TestSteps.get(s)).add("");
 								}
 								if (type == 1) {
 									String data = current_row.getCell(j).getStringCellValue();
-									//Debug: System.out.println("Cell Value" + " " + data + "\n");
-									((ArrayList)TestSteps.get(i)).add(data);
+									Debug: System.out.println("Cell Value" + " " + data + "\n");
+									((ArrayList)TestSteps.get(s)).add(data);
 								}
 								if (type == 0 ) {
 									if((DateUtil.isCellDateFormatted(cell))){
 										String Dvalue = sdf.format(current_row.getCell(j).getDateCellValue());
-										((ArrayList)TestSteps.get(i)).add(Dvalue);
+										((ArrayList)TestSteps.get(s)).add(Dvalue);
 									} else {
 									double value = current_row.getCell(j).getNumericCellValue();
 									//Debug: System.out.println("Cell Value" + " " + value + "\n");
-									((ArrayList)TestSteps.get(i)).add(value);
+									((ArrayList)TestSteps.get(s)).add(value);
 									}
 								}
-								type=-1;
-			
-						}
+								type=-1;					
+						} s++;
 					} FSRead.close();
 					
 					
