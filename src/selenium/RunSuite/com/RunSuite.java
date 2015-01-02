@@ -44,7 +44,8 @@ public class RunSuite {
 			ArrayList StepIDs = new ArrayList();
 			ReadXL getStepIDs= new ReadXL();
 			StepIDs = getStepIDs.GetExecutableSteps();
-			//Debug: System.out.println(StepIDs);
+			//Debug: 
+			System.out.println(StepIDs);
 			
 			log.info("Got all executable Step IDs...");
 			for(int i=1; i< StepIDs.size(); i++) {
