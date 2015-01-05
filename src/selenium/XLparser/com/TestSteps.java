@@ -17,7 +17,8 @@ public class TestSteps {
 	//Global Variables
 			ArrayList TestSteps = new ArrayList();
 			boolean found = false;
-			int step_row;
+			int step_start;
+			int step_end;
 			//ArrayList RequiredTestCases = new ArrayList();
 			
 		
@@ -65,19 +66,39 @@ public class TestSteps {
 								String id = current_row.getCell(c).getStringCellValue();								
 								if(stepID.equals(id)) {
 									found = true;
-									step_row = r+2;
-									System.out.println("Here");						
-								}
+									step_start = r+2;
+									System.out.println("Here Start");
+									
+//											for(int r2=step_start; r<rows; r++) {		
+//												//Iterate Columns
+//												for(int c2=0; c<1; c++) {
+//													//Get Current Row
+//													Row current_row2 = sh.getRow(r);											
+//													//Debug: System.out.println("row and col value =" + i + " , " + j);
+//													Cell blank_cell2 = current_row.getCell(c, current_row.CREATE_NULL_AS_BLANK);
+//													//Debug: System.out.println("Blank cell = " + blank_cell);
+//													int type2 = current_row.getCell(c).getCellType();
+//													//Debug: System.out.println("Value of Type = " + type);
+//													if(c==0 && type==1) {
+//														String id2 = current_row.getCell(c).getStringCellValue();								
+//														if(id2.equals("EndTest")) {
+//															found = true;
+//															break;
+//														}
+//													}	
+//												} if (found == true) {
+//													break;
+//													}
+//											}
+									}
 							}
 							
-						} if (found == true) {
-							break;
-						}
+						} if (found == true) { break; }
 					}
 					
 					System.out.println("Broken");
 					//Iterate Rows and Read complete input XL file
-					for(int i=step_row; i<12; i++) {
+					for(int i=step_start; i<12; i++) {
 						//TestStepsCounter
 						int s=0;
 						//Debug: System.out.println(step_row);
@@ -100,12 +121,12 @@ public class TestSteps {
 								//Debug: System.out.println("Value of Type = " + type);
 								
 								if(type == 3){
-									System.out.println("Empty Cell");
-									((ArrayList)TestSteps.get(s)).add("");
+									//System.out.println("Empty Cell");
+									((ArrayList)TestSteps.get(s)).add("Empty");
 								}
 								if (type == 1) {
 									String data = current_row.getCell(j).getStringCellValue();
-									Debug: System.out.println("Cell Value" + " " + data + "\n");
+									//Debug: System.out.println("Cell Value" + " " + data + "\n");
 									((ArrayList)TestSteps.get(s)).add(data);
 								}
 								if (type == 0 ) {
