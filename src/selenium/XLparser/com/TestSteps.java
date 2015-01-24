@@ -17,8 +17,8 @@ public class TestSteps {
 	//Global Variables
 			ArrayList TestSteps = new ArrayList();
 			boolean found = false;
-			int step_start;
-			int step_end;
+			int step_start=0;
+			int step_end=0;
 			//ArrayList RequiredTestCases = new ArrayList();
 			
 		
@@ -47,7 +47,7 @@ public class TestSteps {
 					//Iterate XL file to get the step ID
 					for(int r=0; r<rows; r++) {		
 						//Iterate Columns
-						for(int c=0; c<cols; c++) {
+						for(int c=0; c<1; c++) {
 							//Get Current Row
 							Row current_row = sh.getRow(r);
 							
@@ -65,40 +65,41 @@ public class TestSteps {
 							if(c==0 && type==1) {
 								String id = current_row.getCell(c).getStringCellValue();								
 								if(stepID.equals(id)) {
-									found = true;
+									//found = true;
 									step_start = r+2;
-									System.out.println("Here Start");
+									System.out.println("Here Start " + step_start );
 									
-//											for(int r2=step_start; r<rows; r++) {		
-//												//Iterate Columns
-//												for(int c2=0; c<1; c++) {
-//													//Get Current Row
-//													Row current_row2 = sh.getRow(r);											
+											for(int r2=step_start; r2<rows; r2++) {		
+												//Iterate Columns
+												for(int c2=0; c2<1; c2++) {
+													//Get Current Row
+													Row current_row2 = sh.getRow(r2);											
 //													//Debug: System.out.println("row and col value =" + i + " , " + j);
-//													Cell blank_cell2 = current_row.getCell(c, current_row.CREATE_NULL_AS_BLANK);
+													Cell blank_cell2 = current_row2.getCell(c2, current_row.CREATE_NULL_AS_BLANK);
 //													//Debug: System.out.println("Blank cell = " + blank_cell);
-//													int type2 = current_row.getCell(c).getCellType();
+													int type2 = current_row2.getCell(c2).getCellType();
 //													//Debug: System.out.println("Value of Type = " + type);
-//													if(c==0 && type==1) {
-//														String id2 = current_row.getCell(c).getStringCellValue();								
-//														if(id2.equals("EndTest")) {
-//															found = true;
-//															break;
-//														}
-//													}	
-//												} if (found == true) {
-//													break;
-//													}
-//											}
+													if(type2==1) {
+														String id2 = current_row2.getCell(c2).getStringCellValue();								
+														if(id2.equals("EndTest")) {
+															found = true;
+															step_end=r2;
+															break;
+														}
+													}	
+												} if (found == true) {
+													break;
+													}
+											}
 									}
 							}
 							
 						} if (found == true) { break; }
 					}
-					
-					System.out.println("Broken");
+					System.out.println("Here End" + step_start );
+					System.out.println("Broken" + step_end);
 					//Iterate Rows and Read complete input XL file
-					for(int i=step_start; i<12; i++) {
+					for(int i=step_start; i<=step_end; i++) {
 						//TestStepsCounter
 						int s=0;
 						//Debug: System.out.println(step_row);
@@ -122,7 +123,7 @@ public class TestSteps {
 								
 								if(type == 3){
 									//System.out.println("Empty Cell");
-									((ArrayList)TestSteps.get(s)).add("Empty");
+									((ArrayList)TestSteps.get(s)).add("NoValue");
 								}
 								if (type == 1) {
 									String data = current_row.getCell(j).getStringCellValue();
@@ -150,7 +151,13 @@ public class TestSteps {
 				}
 				log.info("Reading XL for Test Case Steps for selected ID complete...");	
 				//Debug: System.out.println(TestCases);
-					
+				if (found == true) {	
+				found=false;
 				return TestSteps;
+				}
+				else
+				{
+					return null;
+				}
 			}
 }
