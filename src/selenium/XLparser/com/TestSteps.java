@@ -41,9 +41,9 @@ public class TestSteps {
 					Workbook WB = new HSSFWorkbook(FSRead);
 					Sheet sh = WB.getSheet(sheet_name);
 					int rows = sh.getPhysicalNumberOfRows();
-					System.out.println("No. of rows in Input XL file for Test Steps Sheet = " + rows);
+					//System.out.println("No. of rows in Input XL file for Test Steps Sheet = " + rows);
 					int cols = sh.getRow(0).getLastCellNum();
-					System.out.println("No. of columns in input file for Test Steps Sheet = " + cols);
+					//System.out.println("No. of columns in input file for Test Steps Sheet = " + cols);
 					
 					//Iterate XL file to get the step ID
 					for(int r=0; r<rows; r++) {		
@@ -68,7 +68,7 @@ public class TestSteps {
 								if(stepID.equals(id)) {
 									//found = true;
 									step_start = r+2;
-									System.out.println("Here Start " + step_start );
+									//System.out.println("Here Start " + step_start );
 									
 											for(int r2=step_start; r2<rows; r2++) {		
 												//Iterate Columns
@@ -97,8 +97,8 @@ public class TestSteps {
 							
 						} if (found == true) { break; }
 					}
-					System.out.println("Here End" + step_start );
-					System.out.println("Broken" + step_end);
+					//System.out.println("Here End" + step_start );
+					//System.out.println("Broken" + step_end);
 					//Iterate Rows and Read complete input XL file
 					for(int i=step_start; i<=step_end; i++) {
 						//TestStepsCounter

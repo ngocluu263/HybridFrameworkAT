@@ -44,17 +44,15 @@ public class RunSuite {
 			ArrayList StepIDs = new ArrayList();
 			ReadXL getStepIDs= new ReadXL();
 			StepIDs = getStepIDs.GetExecutableSteps();
-			//Debug: 
-			System.out.println(StepIDs);
+			//Debug: System.out.println(StepIDs);
 			
 			log.info("Got all executable Step IDs...");
 			for(int i=1; i< StepIDs.size(); i++) {
-				//Debug: System.out.println("Step IDs" + StepIDs.get(i));
+				//Debug: 
+				System.out.println("Step IDs" + StepIDs.get(i));
 				StepsDetails=RS.readSteps(InputfilePath, SheetName, (String) StepIDs.get(i) );
-				//StepsDetails=RS.readSteps(InputfilePath, SheetName, "S1TC1");
 				//Debug:
-				System.out.println("Step Details" + StepsDetails);
-				StepsDetails=null;
+				System.out.println("Step Details " + StepsDetails);
 			}			
 		}
 
