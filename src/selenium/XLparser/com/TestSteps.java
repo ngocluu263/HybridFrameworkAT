@@ -33,7 +33,8 @@ public class TestSteps {
 			 */
 			public ArrayList readSteps(String filePath, String sheet_name, String stepID) {
 				log.info("Reading XL for Test Case Steps for selected ID...");		
-				//TestSteps=null;
+				TestSteps.clear();
+				
 				//Start Reading XL file for test cases
 				try {
 					FileInputStream FSRead = new FileInputStream(filePath);
@@ -157,7 +158,7 @@ public class TestSteps {
 				}
 				else
 				{
-					//TestSteps = null;
+					TestSteps.clear();
 					return null;
 				}
 			}
