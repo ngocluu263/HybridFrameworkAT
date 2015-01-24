@@ -51,8 +51,10 @@ public class RunSuite {
 			for(int i=1; i< StepIDs.size(); i++) {
 				//Debug: System.out.println("Step IDs" + StepIDs.get(i));
 				StepsDetails=RS.readSteps(InputfilePath, SheetName, (String) StepIDs.get(i) );
+				//StepsDetails=RS.readSteps(InputfilePath, SheetName, "S1TC1");
 				//Debug:
-				System.out.println(StepsDetails);
+				System.out.println("Step Details" + StepsDetails);
+				StepsDetails=null;
 			}			
 		}
 
