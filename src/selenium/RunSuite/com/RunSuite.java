@@ -2,16 +2,22 @@ package selenium.RunSuite.com;
 
 //Java lib import
 import java.util.ArrayList;
+
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
+import org.junit.BeforeClass;
 import org.junit.Test;
+import org.openqa.selenium.WebDriver;
+
+
 
 //Class Import 
 import selenium.Conf.com.ConfigurationInterface;
+import selenium.Conf.com.PickBrowserDriver;
 import selenium.Conf.com.ReadTestEnvConfiguration;
+import selenium.KeywordEngine.com.KeywordParser;
 import selenium.XLparser.com.ReadXL;
 import selenium.XLparser.com.TestSteps;
-import selenium.KeywordEngine.com.*;
 
 
 /**
@@ -35,6 +41,14 @@ public class RunSuite {
 		String SheetName = conf.getInputTCStepsSheetName();
 		TestSteps RS = new TestSteps();
 		ArrayList StepsDetails = new ArrayList();
+		String getDriver = conf.DriverToUse();
+		
+		@BeforeClass
+		//Driver to Use
+		public void DrivertoTest() {	
+			PickBrowserDriver selectedDrive = new PickBrowserDriver();
+			WebDriver  driver = selectedDrive.getDriver(getDriver);
+		}
 		
 		@Test
 		public void TestExecution() {
