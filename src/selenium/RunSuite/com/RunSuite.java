@@ -11,6 +11,7 @@ import selenium.Conf.com.ConfigurationInterface;
 import selenium.Conf.com.ReadTestEnvConfiguration;
 import selenium.XLparser.com.ReadXL;
 import selenium.XLparser.com.TestSteps;
+import selenium.KeywordEngine.com.*;
 
 
 /**
@@ -44,16 +45,20 @@ public class RunSuite {
 			ArrayList StepIDs = new ArrayList();
 			ReadXL getStepIDs= new ReadXL();
 			StepIDs = getStepIDs.GetExecutableSteps();
+			KeywordParser KP = new KeywordParser();
 			//Debug: System.out.println(StepIDs);
 			
 			log.info("Got all executable Step IDs...");
 			for(int i=1; i< StepIDs.size(); i++) {
-				//Debug: 
-				System.out.println("Step IDs" + StepIDs.get(i));
+				//Debug: System.out.println("Step IDs" + StepIDs.get(i));
 				StepsDetails=RS.readSteps(InputfilePath, SheetName, (String) StepIDs.get(i) );
 				//Debug:
 				if(StepsDetails!=null) {
-				System.out.println("Step Details " + StepsDetails.get(0));
+				//Debug: System.out.println("Step Details " + StepsDetails.get(0));
+				System.out.println("Step IDs" + StepIDs.get(i));	
+				KP.FormatSteps((ArrayList) StepsDetails.get(0));
+				} else {
+					log.warn("This Test Step ID is missing in test steps sheet " + StepIDs.get(i));
 				}
 			}			
 		}
