@@ -1,11 +1,13 @@
 package selenium.KeywordEngine.com;
 
 import java.util.ArrayList;
+import org.openqa.selenium.WebDriver;
 
 public class KeywordParser {
 	
-	public void FormatSteps(ArrayList StepsArray){
+	public void FormatSteps(ArrayList StepsArray, WebDriver driver){
 		
+		System.out.println("Driver Using " + driver);
 		for(int i=0;i<StepsArray.size();i++) {
 
 			//Action:

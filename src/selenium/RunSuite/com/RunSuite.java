@@ -39,21 +39,21 @@ public class RunSuite {
 		ConfigurationInterface conf = new ReadTestEnvConfiguration();
 		String InputfilePath = conf.getInputfilePath();
 		String SheetName = conf.getInputTCStepsSheetName();
-		TestSteps RS = new TestSteps();
-		ArrayList StepsDetails = new ArrayList();
 		String getDriver = conf.DriverToUse();
 		
-		@BeforeClass
-		//Driver to Use
-		public void DrivertoTest() {	
-			BrowserDriver selectedDrive = new BrowserDriver();
-			WebDriver  driver = selectedDrive.getDriver(getDriver);
-		}
+		//Global Variables
+		TestSteps RS = new TestSteps();
+		ArrayList StepsDetails = new ArrayList();
 		
 		@Test
 		public void TestExecution() {
 			//Logging details
 			PropertyConfigurator.configure("Configuration/log.properties");
+			
+			//Driver to use		
+			BrowserDriver selectedDriver = new BrowserDriver();
+			WebDriver driver = selectedDriver.getDriver(getDriver);
+			System.out.println("Driver Before " + driver); 
 			
 			//Get Test Case to Read Steps from XL parser
 			ArrayList StepIDs = new ArrayList();
@@ -70,7 +70,8 @@ public class RunSuite {
 				if(StepsDetails!=null) {
 				//Debug: System.out.println("Step Details " + StepsDetails.get(0));
 				System.out.println("Step IDs" + StepIDs.get(i));	
-				KP.FormatSteps((ArrayList) StepsDetails.get(0));
+				KP.FormatSteps((ArrayList) StepsDetails.get(0), driver);
+				//KP.FormatSteps((ArrayList) StepsDetails.get(0), null);
 				} else {
 					log.warn("This Test Step ID is missing in test steps sheet " + StepIDs.get(i));
 				}
