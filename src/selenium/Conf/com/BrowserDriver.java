@@ -8,9 +8,9 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 
 
-public class PickBrowserDriver {
+public class BrowserDriver {
 
-	static Logger log = Logger.getLogger(PickBrowserDriver.class.getName());
+	static Logger log = Logger.getLogger(BrowserDriver.class.getName());
 	
 	
 	public WebDriver getDriver(String ConfDriver) {

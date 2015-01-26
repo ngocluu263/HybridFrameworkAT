@@ -13,7 +13,7 @@ import org.openqa.selenium.WebDriver;
 
 //Class Import 
 import selenium.Conf.com.ConfigurationInterface;
-import selenium.Conf.com.PickBrowserDriver;
+import selenium.Conf.com.BrowserDriver;
 import selenium.Conf.com.ReadTestEnvConfiguration;
 import selenium.KeywordEngine.com.KeywordParser;
 import selenium.XLparser.com.ReadXL;
@@ -46,7 +46,7 @@ public class RunSuite {
 		@BeforeClass
 		//Driver to Use
 		public void DrivertoTest() {	
-			PickBrowserDriver selectedDrive = new PickBrowserDriver();
+			BrowserDriver selectedDrive = new BrowserDriver();
 			WebDriver  driver = selectedDrive.getDriver(getDriver);
 		}
 		
