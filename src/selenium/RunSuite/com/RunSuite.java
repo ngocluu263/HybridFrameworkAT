@@ -14,7 +14,7 @@ import org.openqa.selenium.WebDriver;
 import selenium.Conf.com.ConfigurationInterface;
 import selenium.Conf.com.BrowserDriver;
 import selenium.Conf.com.ReadTestEnvConfiguration;
-import selenium.KeywordEngine.com.KeywordParser;
+import selenium.KeywordEngine.com.ActionParser;
 import selenium.XLparser.com.ReadXL;
 import selenium.XLparser.com.TestSteps;
 
@@ -58,7 +58,7 @@ public class RunSuite {
 			ArrayList StepIDs = new ArrayList();
 			ReadXL getStepIDs= new ReadXL();
 			StepIDs = getStepIDs.GetExecutableSteps();
-			KeywordParser KP = new KeywordParser();
+			ActionParser KP = new ActionParser();
 			//Debug: System.out.println(StepIDs);
 			
 			log.info("Got all executable Step IDs...");
