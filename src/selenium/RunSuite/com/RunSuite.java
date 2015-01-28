@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 
@@ -53,7 +52,7 @@ public class RunSuite {
 			//Driver to use		
 			BrowserDriver selectedDriver = new BrowserDriver();
 			WebDriver driver = selectedDriver.getDriver(getDriver);
-			System.out.println("Driver Before " + driver); 
+			//Debug: System.out.println("Driver Before " + driver); 
 			
 			//Get Test Case to Read Steps from XL parser
 			ArrayList StepIDs = new ArrayList();
