@@ -54,7 +54,16 @@ public class ActionParser {
 		
 	}
 	
+	public void RightClick() {
+		
+	}
 	
+	public void MouseHover() {
+		
+	}
 	
+	public void screenshot() {
+		
+	}
 	
 }
