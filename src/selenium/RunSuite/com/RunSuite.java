@@ -69,6 +69,8 @@ public class RunSuite {
 				if(StepsDetails!=null) {
 				//Debug: System.out.println("Step Details " + StepsDetails.get(0));
 				System.out.println("Step IDs" + StepIDs.get(i));	
+				
+				log.info("Executing Test Step " + StepIDs.get(i));
 				KP.FormatSteps((ArrayList) StepsDetails.get(0), driver);
 				//KP.FormatSteps((ArrayList) StepsDetails.get(0), null);
 				} else {
