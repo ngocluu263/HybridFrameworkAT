@@ -18,12 +18,13 @@ public class ActionParser {
 	WebElement Locator=null;
 	static Logger log = Logger.getLogger(RunSuite.class.getName());
 	String classPath = "selenium.KeywordEngine.com.ActionParser";
-	//static WebDriver driver;
+	static WebDriver driver;
 	
-	public void FormatSteps(ArrayList StepsArray, WebDriver driver){
+	public void FormatSteps(ArrayList StepsArray, WebDriver drivertoUse){
 		
 		//Debug: System.out.println("Class name " + classPath);
 		//Debug:
+		driver=drivertoUse;
 		System.out.println("Driver Using " + driver);
 		for(int i=0;i<StepsArray.size();i++) {
 
@@ -39,7 +40,7 @@ public class ActionParser {
 			
 			//To read the parameters from class method
 			Class[] parameterTypes = new Class[1];
-			parameterTypes[0] = WebDriver.class;
+			parameterTypes[0] = String.class;
 			
 			//Implement Java Reflection here
 			//Steps: 
@@ -54,7 +55,7 @@ public class ActionParser {
 				Object clsObj = cls.newInstance();
 				Method method= cls.getMethod(ActionMethodName,parameterTypes);
 				//Debug: System.out.println("Action " + StepsArray.get(i) + "and class " + cls);
-				method.invoke(clsObj,driver);
+				method.invoke(clsObj,"temp");
 				} catch (IllegalArgumentException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -86,42 +87,42 @@ public class ActionParser {
 	//Reflection Methods based on Action keywords
 	//Actions are the input activities and input types. User can either type or click. Based on user input Action will executed.
 	
-	public void VisitURL(WebDriver driver) {
+	public void VisitURL(String driver1) {
 		driver.get("http://www.amazon.in");
 		if(!driver.getTitle().startsWith("Online Shopping:")) {
 			throw new NotFoundException("Page Not Found");
-		}
+		} 
 		//Debug: System.out.println("Sample " + driver);
 	}
 	
-	public void LeftClick(WebDriver driver) {
+	public void LeftClick(String driver1) {
 		
 	}
 	
-	public void Type(WebDriver driver) {
+	public void Type(String driver1) {
 		
 	}
 	
-	public void Submit(WebDriver driver) {
+	public void Submit(String driver1) {
 		
 	}
 	
-	public void RightClick(WebDriver driver) {
+	public void RightClick(String driver1) {
 		
 	}
 	
-	public void MouseHover(WebDriver driver) {
+	public void MouseHover(String driver1) {
 		
 	}
 	
-	public void screenshot(WebDriver driver) {
+	public void screenshot(String driver1) {
 		
 	}
-	public void WAIT(WebDriver driver) {
+	public void WAIT(String driver1) {
 		
 	}
 	
-	public void VerifyLabel(WebDriver driver) {
+	public void VerifyLabel(String driver1) {
 		
 	}
 	
