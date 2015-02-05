@@ -1,14 +1,21 @@
 package selenium.KeywordEngine.com;
 
+//Java libs
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
+import org.openqa.selenium.By;
+//Selenium libs
 import org.openqa.selenium.NotFoundException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+//Class libs
 import selenium.RunSuite.com.RunSuite;
 
 
@@ -32,15 +39,16 @@ public class ActionParser {
 			String ActionMethodName = (String) StepsArray.get(i);
 			//Debug: 
 			System.out.println("Action " + StepsArray.get(i));
-			
-			
+						
 			if(StepsArray.get(i).equals("EndTest") || StepsArray.get(i).equals("NoValue")) {
 				//There is no use of invoke method for no values and EntTest
 			} else { 
 			
 			//To read the parameters from class method
-			Class[] parameterTypes = new Class[1];
-			parameterTypes[0] = String.class;
+			//Class[] parameterTypes = new Class[1];
+			//parameterTypes[0] = String.class;
+			//parameterTypes[1] = String.class;
+			String parameter;
 			
 			//Implement Java Reflection here
 			//Steps: 
@@ -49,13 +57,35 @@ public class ActionParser {
 			//-Get method of the class.
 			//-Invoke method.
 			
-			//From class name, get class object
+			
 			try {
 				Class cls = Class.forName(classPath);
 				Object clsObj = cls.newInstance();
-				Method method= cls.getMethod(ActionMethodName,parameterTypes);
+				Method method= cls.getMethod(ActionMethodName,String.class, String.class);
 				//Debug: System.out.println("Action " + StepsArray.get(i) + "and class " + cls);
-				method.invoke(clsObj,"temp");
+				
+				//Find Parameter value from input file
+				String parameter1 = (String)(StepsArray.get(i+1));
+				String parameter2 = (String)(StepsArray.get(i+2)); 
+				if(parameter1.equals("NoValue") || parameter2.equals("NoValue")) {
+					parameter = null;
+				} else {
+					if(parameter1 != "NoValue") {
+						parameter = parameter1;
+					} else {
+						parameter = parameter2;
+					}
+				}
+				
+				//Find Data value from input file
+				String 	dataValue =  	 (String)(StepsArray.get(i+3));
+				if(dataValue.equals("NoValue")) {
+					dataValue= null;
+				}
+				
+				
+				//call method based on dynamic value
+				method.invoke(clsObj,parameter,dataValue);
 				} catch (IllegalArgumentException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -87,42 +117,49 @@ public class ActionParser {
 	//Reflection Methods based on Action keywords
 	//Actions are the input activities and input types. User can either type or click. Based on user input Action will executed.
 	
-	public void VisitURL(String driver1) {
-		driver.get("http://www.amazon.in");
+	public void VisitURL(String temp, String data) {
+		driver.get(data);
 		if(!driver.getTitle().startsWith("Online Shopping:")) {
 			throw new NotFoundException("Page Not Found");
 		} 
-		//Debug: System.out.println("Sample " + driver);
 	}
 	
-	public void LeftClick(String driver1) {
+	public void LeftClick(String locator, String temp1) {
+		WebElement mouse = driver.findElement(By.id(locator));
+		mouse.click();
+	}
+	
+	public void Type(String locator, String content) {
+		WebElement type = driver.findElement(By.id(locator));
+		type.sendKeys(content);
+	}
+	
+	public void Submit(String locator, String temp) {
+		WebElement Submit = driver.findElement(By.id(locator));
+		Submit.click();
+	}
+	
+	public void RightClick(String temp1, String temp2) {
 		
 	}
 	
-	public void Type(String driver1) {
+	public void MouseHover(String temp1, String temp2) {
 		
 	}
 	
-	public void Submit(String driver1) {
+	public void screenshot(String temp1, String temp2) {
 		
+	}
+	public void WAIT(String temp1, final String until) {
+		(new WebDriverWait(driver, 30)).until(new ExpectedCondition<Boolean>() {
+            public Boolean apply(WebDriver d) {
+                return d.getTitle().toLowerCase().startsWith(until);
+            }
+        });
 	}
 	
-	public void RightClick(String driver1) {
-		
-	}
-	
-	public void MouseHover(String driver1) {
-		
-	}
-	
-	public void screenshot(String driver1) {
-		
-	}
-	public void WAIT(String driver1) {
-		
-	}
-	
-	public void VerifyLabel(String driver1) {
+	public void VerifyLabel(String loactor, String label) {
+		WebElement element = driver.findElement(By.id(loactor));
 		
 	}
 	
