@@ -4,6 +4,7 @@ package selenium.KeywordEngine.com;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
@@ -12,8 +13,8 @@ import org.openqa.selenium.NotFoundException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
-
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 
 //Class libs
 import selenium.RunSuite.com.RunSuite;
@@ -31,8 +32,9 @@ public class ActionParser {
 		
 		//Debug: System.out.println("Class name " + classPath);
 		//Debug:
-		driver=drivertoUse;
 		System.out.println("Driver Using " + driver);
+		
+		driver=drivertoUse;
 		for(int i=0;i<StepsArray.size();i++) {
 
 			//Get Action to call corresponding method name
@@ -45,9 +47,6 @@ public class ActionParser {
 			} else { 
 			
 			//To read the parameters from class method
-			//Class[] parameterTypes = new Class[1];
-			//parameterTypes[0] = String.class;
-			//parameterTypes[1] = String.class;
 			String parameter;
 			
 			//Implement Java Reflection here
@@ -67,7 +66,7 @@ public class ActionParser {
 				//Find Parameter value from input file
 				String parameter1 = (String)(StepsArray.get(i+1));
 				String parameter2 = (String)(StepsArray.get(i+2)); 
-				if(parameter1.equals("NoValue") || parameter2.equals("NoValue")) {
+				if(parameter1.equals("NoValue") && parameter2.equals("NoValue")) {
 					parameter = null;
 				} else {
 					if(parameter1 != "NoValue") {
@@ -79,9 +78,9 @@ public class ActionParser {
 				
 				//Find Data value from input file
 				String 	dataValue =  	 (String)(StepsArray.get(i+3));
-				if(dataValue.equals("NoValue")) {
-					dataValue= null;
-				}
+			/*	if(dataValue.equals("NoValue")) {
+					dataValue= "NoValue";
+				} */
 				
 				
 				//call method based on dynamic value
@@ -139,6 +138,11 @@ public class ActionParser {
 		Submit.click();
 	}
 	
+	public void FormSubmit(String locator, String temp) {
+		WebElement Form = driver.findElement(By.className(locator));
+		Form.click();
+	}
+	
 	public void RightClick(String temp1, String temp2) {
 		
 	}
@@ -151,16 +155,16 @@ public class ActionParser {
 		
 	}
 	public void WAIT(String temp1, final String until) {
-		(new WebDriverWait(driver, 30)).until(new ExpectedCondition<Boolean>() {
-            public Boolean apply(WebDriver d) {
-                return d.getTitle().toLowerCase().startsWith(until);
-            }
-        });
+		driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
 	}
 	
 	public void VerifyLabel(String loactor, String label) {
 		WebElement element = driver.findElement(By.id(loactor));
-		
+		String labelText = element.getText();
+		System.out.println("Complete Text" + labelText);
+		if(labelText.contains(label)) {
+			System.out.println("Text Found");
+		}
 	}
 	
 	} // End Class
