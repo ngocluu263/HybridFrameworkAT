@@ -27,7 +27,7 @@ public class ActionParser {
 	static Logger log = Logger.getLogger(RunSuite.class.getName());
 	String classPath = "selenium.KeywordEngine.com.ActionParser";
 	static WebDriver driver;
-	boolean classFlag = false;
+	static boolean classFlag;
 	
 	public void FormatSteps(ArrayList StepsArray, WebDriver drivertoUse){
 		
@@ -37,8 +37,6 @@ public class ActionParser {
 		
 		driver=drivertoUse;
 		for(int i=0;i<StepsArray.size();i++) {
-
-			classFlag=false;
 			//Get Action to call corresponding method name
 			String ActionMethodName = (String) StepsArray.get(i);
 			//Debug: 
@@ -73,6 +71,7 @@ public class ActionParser {
 				} else {
 					if(parameter1 != "NoValue") {
 						parameter = parameter1;
+						classFlag=false;
 					} else {
 						parameter = parameter2;
 						classFlag=true;
@@ -107,7 +106,7 @@ public class ActionParser {
 			//Locator by ID:
 			System.out.println("Locator by ID " + StepsArray.get(i+1));
 			//Locator by xPath:
-			System.out.println("Locator by xPath " + StepsArray.get(i+2));
+			System.out.println("Locator by ClassName " + StepsArray.get(i+2));
 			//Data value:
 			System.out.println("Data Value " + StepsArray.get(i+3));
 			i=i+3;
@@ -127,26 +126,30 @@ public class ActionParser {
 	}
 	
 	public void LeftClick(String locator, String temp1) {
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		WebElement mouse = driver.findElement(By.id(locator));
 		mouse.click();
 	}
 	
 	public void Type(String locator, String content) {
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		WebElement type = driver.findElement(By.id(locator));
 		type.sendKeys(content);
 	}
 	
 	public void Submit(String locator, String temp) {
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		WebElement Submit;
-		if(!classFlag) {
-		Submit = driver.findElement(By.id(locator));
+		if(classFlag) {
+			Submit = driver.findElement(By.className(locator));
 		} else {
-		Submit = driver.findElement(By.className(locator));
+			Submit = driver.findElement(By.id(locator));
 		}
 		Submit.click();	
 	}
 	
 	public void FormSubmit(String locator, String temp) {
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		WebElement Form = driver.findElement(By.className(locator));
 		Form.submit();
 	}
@@ -163,10 +166,20 @@ public class ActionParser {
 		
 	}
 	public void WAIT(String temp1, final String until) {
-		driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+	}
+	
+	public void CloseBrowser(String temp1, String temp2) {
+		driver.close();
+		//driver.quit();
+	}
+	
+	public void OpenBrowser(String temp1, String temp2) {
+		
 	}
 	
 	public void VerifyLabel(String loactor, String label) {
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		WebElement element = driver.findElement(By.id(loactor));
 		String labelText = element.getText();
 		System.out.println("Complete Text" + labelText);
