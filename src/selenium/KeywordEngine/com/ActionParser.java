@@ -27,6 +27,7 @@ public class ActionParser {
 	static Logger log = Logger.getLogger(RunSuite.class.getName());
 	String classPath = "selenium.KeywordEngine.com.ActionParser";
 	static WebDriver driver;
+	boolean classFlag = false;
 	
 	public void FormatSteps(ArrayList StepsArray, WebDriver drivertoUse){
 		
@@ -37,6 +38,7 @@ public class ActionParser {
 		driver=drivertoUse;
 		for(int i=0;i<StepsArray.size();i++) {
 
+			classFlag=false;
 			//Get Action to call corresponding method name
 			String ActionMethodName = (String) StepsArray.get(i);
 			//Debug: 
@@ -73,6 +75,7 @@ public class ActionParser {
 						parameter = parameter1;
 					} else {
 						parameter = parameter2;
+						classFlag=true;
 					}
 				}
 				
@@ -134,13 +137,18 @@ public class ActionParser {
 	}
 	
 	public void Submit(String locator, String temp) {
-		WebElement Submit = driver.findElement(By.id(locator));
-		Submit.click();
+		WebElement Submit;
+		if(!classFlag) {
+		Submit = driver.findElement(By.id(locator));
+		} else {
+		Submit = driver.findElement(By.className(locator));
+		}
+		Submit.click();	
 	}
 	
 	public void FormSubmit(String locator, String temp) {
 		WebElement Form = driver.findElement(By.className(locator));
-		Form.click();
+		Form.submit();
 	}
 	
 	public void RightClick(String temp1, String temp2) {
