@@ -71,7 +71,7 @@ public class RunSuite {
 				System.out.println("Step IDs" + StepIDs.get(i));	
 				
 				log.info("Executing Test Step " + StepIDs.get(i));
-				KP.FormatSteps((ArrayList) StepsDetails.get(0), driver);
+				KP.FormatSteps((ArrayList) StepsDetails.get(0), getDriver);
 				//KP.FormatSteps((ArrayList) StepsDetails.get(0), null);
 				} else {
 					log.warn("This Test Step ID is missing in test steps sheet " + StepIDs.get(i));
