@@ -49,11 +49,6 @@ public class RunSuite {
 			//Logging details
 			PropertyConfigurator.configure("Configuration/log.properties");
 			
-			//Driver to use		
-			BrowserDriver selectedDriver = new BrowserDriver();
-			WebDriver driver = selectedDriver.getDriver(getDriver);
-			//Debug: System.out.println("Driver Before " + driver); 
-			
 			//Get Test Case to Read Steps from XL parser
 			ArrayList StepIDs = new ArrayList();
 			ReadXL getStepIDs= new ReadXL();

@@ -16,7 +16,6 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 
-
 import selenium.Conf.com.BrowserDriver;
 //Class libs
 import selenium.RunSuite.com.RunSuite;
@@ -36,14 +35,14 @@ public class ActionParser {
 		//Debug: System.out.println("Class name " + classPath);
 		//Driver to use		
 		BrowserDriver selectedDriver = new BrowserDriver();
-		WebDriver driver = selectedDriver.getDriver(getDriver);
+		WebDriver drivertoUse = selectedDriver.getDriver(getDriver);
 		//Debug: System.out.println("Driver Before " + driver); 
 		
 		
 		//Debug:
 		System.out.println("Driver Using " + driver);
 		
-		//driver=drivertoUse;
+		driver=drivertoUse;
 		for(int i=0;i<StepsArray.size();i++) {
 			//Get Action to call corresponding method name
 			String ActionMethodName = (String) StepsArray.get(i);
@@ -179,11 +178,6 @@ public class ActionParser {
 	
 	public void CloseBrowser(String temp1, String temp2) {
 		driver.close();
-		//driver.quit();
-	}
-	
-	public void OpenBrowser(String temp1, String temp2) {
-		
 	}
 	
 	public void VerifyLabel(String loactor, String label) {
