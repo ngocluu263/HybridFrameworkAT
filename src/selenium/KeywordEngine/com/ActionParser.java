@@ -1,20 +1,21 @@
 package selenium.KeywordEngine.com;
 
 //Java libs
+import org.junit.Assert;
+import org.junit.Test;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
-import org.openqa.selenium.By;
+
 //Selenium libs
+import org.openqa.selenium.By;
 import org.openqa.selenium.NotFoundException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
 
 import selenium.Conf.com.BrowserDriver;
 //Class libs
@@ -111,17 +112,20 @@ public class ActionParser {
 				} 		
 			
 			//Locator by ID:
-			System.out.println("Locator by ID " + StepsArray.get(i+1));
+			//Debug: System.out.println("Locator by ID " + StepsArray.get(i+1));
 			//Locator by xPath:
-			System.out.println("Locator by ClassName " + StepsArray.get(i+2));
+			//Debug: System.out.println("Locator by ClassName " + StepsArray.get(i+2));
 			//Data value:
-			System.out.println("Data Value " + StepsArray.get(i+3));
+			//Debug: System.out.println("Data Value " + StepsArray.get(i+3));
+			
+			//Jumping on next row in steps section 
 			i=i+3;
 		}
 			
 		} //End on EntStep
 	} // End Format Steps
 
+	
 	//Reflection Methods based on Action keywords
 	//Actions are the input activities and input types. User can either type or click. Based on user input Action will executed.
 	
@@ -172,6 +176,7 @@ public class ActionParser {
 	public void screenshot(String temp1, String temp2) {
 		
 	}
+	
 	public void WAIT(String temp1, final String until) {
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 	}
@@ -180,14 +185,25 @@ public class ActionParser {
 		driver.close();
 	}
 	
+
 	public void VerifyLabel(String loactor, String label) {
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		
+		String ActualResult;
+		String ExpectedResult="Pass";
 		WebElement element = driver.findElement(By.id(loactor));
 		String labelText = element.getText();
+		//Debug: 
 		System.out.println("Complete Text" + labelText);
-		if(labelText.contains(label)) {
-			System.out.println("Text Found");
+		
+		 if(labelText.contains(label)) {
+			 ActualResult="Pass";
+		} else {
+			ActualResult="Fail";
 		}
+		 //Assert.assertEquals(ExpectedResult, ActualResult);
+		 
 	}
+	
 	
 	} // End Class

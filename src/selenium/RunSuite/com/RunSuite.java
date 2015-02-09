@@ -53,7 +53,7 @@ public class RunSuite {
 			ArrayList StepIDs = new ArrayList();
 			ReadXL getStepIDs= new ReadXL();
 			StepIDs = getStepIDs.GetExecutableSteps();
-			ActionParser KP = new ActionParser();
+			ActionParser AP = new ActionParser();
 			//Debug: System.out.println(StepIDs);
 			
 			log.info("Got all executable Step IDs...");
@@ -66,7 +66,7 @@ public class RunSuite {
 				System.out.println("Step IDs" + StepIDs.get(i));	
 				
 				log.info("Executing Test Step " + StepIDs.get(i));
-				KP.FormatSteps((ArrayList) StepsDetails.get(0), getDriver);
+				AP.FormatSteps((ArrayList) StepsDetails.get(0), getDriver);
 				//KP.FormatSteps((ArrayList) StepsDetails.get(0), null);
 				} else {
 					log.warn("This Test Step ID is missing in test steps sheet " + StepIDs.get(i));
