@@ -49,6 +49,13 @@ public class RunSuite {
 			//Logging details
 			PropertyConfigurator.configure("Configuration/log.properties");
 			
+			//Debug: System.out.println("Class name " + classPath);
+			//Driver to use		
+			BrowserDriver selectedDriver = new BrowserDriver();
+			WebDriver drivertoUse = selectedDriver.getDriver(getDriver);
+			//Debug: System.out.println("Driver Before " + driver);
+			
+			
 			//Get Test Case to Read Steps from XL parser
 			ArrayList StepIDs = new ArrayList();
 			ReadXL getStepIDs= new ReadXL();
@@ -66,7 +73,7 @@ public class RunSuite {
 				System.out.println("Step IDs" + StepIDs.get(i));	
 				
 				log.info("Executing Test Step " + StepIDs.get(i));
-				AP.FormatSteps((ArrayList) StepsDetails.get(0), getDriver);
+				AP.FormatSteps((ArrayList) StepsDetails.get(0), drivertoUse);
 				//KP.FormatSteps((ArrayList) StepsDetails.get(0), null);
 				} else {
 					log.warn("This Test Step ID is missing in test steps sheet " + StepIDs.get(i));
