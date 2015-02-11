@@ -3,13 +3,13 @@ package selenium.KeywordEngine.com;
 //Java libs
 import org.junit.Assert;
 import org.junit.Test;
+import org.apache.log4j.Logger;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.log4j.Logger;
 
 //Selenium libs
 import org.openqa.selenium.By;
@@ -17,10 +17,16 @@ import org.openqa.selenium.NotFoundException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import selenium.Conf.com.BrowserDriver;
-//Class libs
-import selenium.RunSuite.com.RunSuite;
 
+//Class libs
+import selenium.Conf.com.BrowserDriver;
+import selenium.ObjectRepository.com.KeyType;
+import selenium.ObjectRepository.com.Label;
+import selenium.ObjectRepository.com.MouseClick;
+import selenium.ObjectRepository.com.PageTitle;
+import selenium.ObjectRepository.com.PageURL;
+import selenium.ObjectRepository.com.Submit;
+import selenium.RunSuite.com.RunSuite;
 
 public class ActionParser {
 	
@@ -30,18 +36,26 @@ public class ActionParser {
 	String classPath = "selenium.KeywordEngine.com.ActionParser";
 	static WebDriver driver;
 	static boolean classFlag;
-	
-	public void FormatSteps(ArrayList StepsArray, String getDriver){
+
+	//Page object interface class object declaration 
+	PageURL pagevisit = new PageURL();
+	MouseClick click = new MouseClick();
+	PageTitle title = new PageTitle();
+	KeyType type = new KeyType();
+	Submit SubmitBtn = new Submit();
+	Label txtlabel = new Label();
+
+	public void FormatSteps(ArrayList StepsArray, WebDriver drivertoUse){
 		
 		//Debug: System.out.println("Class name " + classPath);
 		//Driver to use		
-		BrowserDriver selectedDriver = new BrowserDriver();
-		WebDriver drivertoUse = selectedDriver.getDriver(getDriver);
+		//BrowserDriver selectedDriver = new BrowserDriver();
+		//WebDriver drivertoUse = selectedDriver.getDriver(getDriver);
 		//Debug: System.out.println("Driver Before " + driver); 
 		
 		
 		//Debug:
-		System.out.println("Driver Using " + driver);
+		System.out.println("Driver Using " + drivertoUse);
 		
 		driver=drivertoUse;
 		for(int i=0;i<StepsArray.size();i++) {
@@ -129,40 +143,29 @@ public class ActionParser {
 	//Reflection Methods based on Action keywords
 	//Actions are the input activities and input types. User can either type or click. Based on user input Action will executed.
 	
+	//Selenium WebDriver
 	public void VisitURL(String temp, String data) {
-		driver.get(data);
-		if(!driver.getTitle().startsWith("Online Shopping:")) {
-			throw new NotFoundException("Page Not Found");
-		} 
+		pagevisit.visitURL(data, driver);		
 	}
 	
+	//Selenium WebDriver
 	public void LeftClick(String locator, String temp1) {
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		WebElement mouse = driver.findElement(By.id(locator));
-		mouse.click();
+		click.LeftClick(locator, driver, classFlag);		
 	}
 	
+	//Assert to verify
+	public void PageTitle(String ExpectedText, String temp1) {
+		String ActualText = title.visitURLTitle(driver);
+	}
+	
+	//Selenium WebDriver
 	public void Type(String locator, String content) {
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		WebElement type = driver.findElement(By.id(locator));
-		type.sendKeys(content);
+		type.TypeKeys(locator, content, driver);
 	}
 	
+	//Selenium WebDriver
 	public void Submit(String locator, String temp) {
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		WebElement Submit;
-		if(classFlag) {
-			Submit = driver.findElement(By.className(locator));
-		} else {
-			Submit = driver.findElement(By.id(locator));
-		}
-		Submit.click();	
-	}
-	
-	public void FormSubmit(String locator, String temp) {
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		WebElement Form = driver.findElement(By.className(locator));
-		Form.submit();
+		SubmitBtn.SubmitPage(locator, driver, classFlag);
 	}
 	
 	public void RightClick(String temp1, String temp2) {
@@ -177,32 +180,13 @@ public class ActionParser {
 		
 	}
 	
-	public void WAIT(String temp1, final String until) {
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-	}
-	
 	public void CloseBrowser(String temp1, String temp2) {
 		driver.close();
 	}
 	
 
 	public void VerifyLabel(String loactor, String label) {
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		
-		String ActualResult;
-		String ExpectedResult="Pass";
-		WebElement element = driver.findElement(By.id(loactor));
-		String labelText = element.getText();
-		//Debug: 
-		System.out.println("Complete Text" + labelText);
-		
-		 if(labelText.contains(label)) {
-			 ActualResult="Pass";
-		} else {
-			ActualResult="Fail";
-		}
-		 //Assert.assertEquals(ExpectedResult, ActualResult);
-		 
+		String result = txtlabel.CheckLabel(loactor, label, driver);
 	}
 	
 	
