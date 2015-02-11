@@ -23,9 +23,9 @@ public class BrowserDriver {
 			if(ConfDriver.equals("chrome")) {
 				//TODO need to place OS Validation as well
 				//MAC
-				System.setProperty("webdriver.chrome.driver", "/Users/ashv/Automation/workspace/HybridFramework/BrowserDrivers/ChromeMac/chromedriver");
+				//System.setProperty("webdriver.chrome.driver", "/Users/ashv/Automation/workspace/HybridFramework/BrowserDrivers/ChromeMac/chromedriver");
 				//WIN
-				//System.setProperty("webdriver.chrome.driver", "F:\\Automation\\Selenuim\\AshDataDriven\\BrowserNativeDriver\\chromedriver");
+				System.setProperty("webdriver.chrome.driver", "F:\\Automation\\Selenuim\\workspace\\HybridFramework\\BrowserDrivers\\ChromeWin\\chromedriver.exe");
 				driverOpted = new ChromeDriver();
 			}
 			else if(ConfDriver.equals("firefox")) {
