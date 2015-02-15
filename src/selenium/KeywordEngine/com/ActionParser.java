@@ -5,10 +5,12 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.apache.log4j.Logger;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
+
 
 
 
@@ -17,6 +19,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NotFoundException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+
 
 
 
@@ -157,12 +160,20 @@ public class ActionParser {
 	
 	//Selenium WebDriver
 	public void LeftClick(String locator, String temp1) {
-		click.LeftClick(locator, driver, classFlag, CurrentStepID);		
+		click.LeftClick(locator, driver, classFlag);		
 	}
 	
 	//Assert to verify
-	public void PageTitle(String ExpectedText, String temp1) {
+	public void PageTitle(String temp1, String ExpectedText) {
 		String ActualText = title.visitURLTitle(driver);
+		//System.out.println("Complete Text : "  + ActualText);
+		//System.out.println("Expected Text : "  + ExpectedText);
+		if(ActualText.contains(ExpectedText)) {
+			System.out.println("PageTitlePass for " + ExpectedText);
+		}
+		else {
+			screenshot.SS(driver, CurrentStepID);
+		}
 	}
 	
 	//Selenium WebDriver
@@ -184,10 +195,6 @@ public class ActionParser {
 	}
 	
 	public void ScreenShot(String temp1, String FileName) {
-		screenshot.SS(driver, FileName);
-	}
-	
-	public void IfErrorScreenShot(String temp1, String FileName) {
 		screenshot.SS(driver, FileName);
 	}
 	
