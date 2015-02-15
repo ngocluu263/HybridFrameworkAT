@@ -11,11 +11,13 @@ import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 
+
 //Selenium libs
 import org.openqa.selenium.By;
 import org.openqa.selenium.NotFoundException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+
 
 
 //Class libs
@@ -25,6 +27,7 @@ import selenium.ObjectRepository.com.Label;
 import selenium.ObjectRepository.com.MouseClick;
 import selenium.ObjectRepository.com.PageTitle;
 import selenium.ObjectRepository.com.PageURL;
+import selenium.ObjectRepository.com.ScreenShot;
 import selenium.ObjectRepository.com.Submit;
 import selenium.RunSuite.com.RunSuite;
 
@@ -36,6 +39,7 @@ public class ActionParser {
 	String classPath = "selenium.KeywordEngine.com.ActionParser";
 	static WebDriver driver;
 	static boolean classFlag;
+	static String CurrentStepID;
 
 	//Page object interface class object declaration 
 	PageURL pagevisit = new PageURL();
@@ -44,8 +48,9 @@ public class ActionParser {
 	KeyType type = new KeyType();
 	Submit SubmitBtn = new Submit();
 	Label txtlabel = new Label();
+	ScreenShot screenshot = new ScreenShot();
 
-	public void FormatSteps(ArrayList StepsArray, WebDriver drivertoUse){
+	public void FormatSteps(ArrayList StepsArray, WebDriver drivertoUse, String StepID){
 		
 		//Debug: System.out.println("Class name " + classPath);
 		//Driver to use		
@@ -56,8 +61,10 @@ public class ActionParser {
 		
 		//Debug:
 		System.out.println("Driver Using " + drivertoUse);
-		
+		//Global variable assign
 		driver=drivertoUse;
+		CurrentStepID=StepID;
+		
 		for(int i=0;i<StepsArray.size();i++) {
 			//Get Action to call corresponding method name
 			String ActionMethodName = (String) StepsArray.get(i);
@@ -150,7 +157,7 @@ public class ActionParser {
 	
 	//Selenium WebDriver
 	public void LeftClick(String locator, String temp1) {
-		click.LeftClick(locator, driver, classFlag);		
+		click.LeftClick(locator, driver, classFlag, CurrentStepID);		
 	}
 	
 	//Assert to verify
@@ -176,8 +183,12 @@ public class ActionParser {
 		
 	}
 	
-	public void screenshot(String temp1, String temp2) {
-		
+	public void ScreenShot(String temp1, String FileName) {
+		screenshot.SS(driver, FileName);
+	}
+	
+	public void IfErrorScreenShot(String temp1, String FileName) {
+		screenshot.SS(driver, FileName);
 	}
 	
 	public void CloseBrowser(String temp1, String temp2) {

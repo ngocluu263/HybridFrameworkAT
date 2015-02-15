@@ -10,6 +10,7 @@ import org.openqa.selenium.WebDriver;
 
 
 
+
 //Class Import 
 import selenium.Conf.com.ConfigurationInterface;
 import selenium.Conf.com.BrowserDriver;
@@ -61,19 +62,23 @@ public class RunSuite {
 			ReadXL getStepIDs= new ReadXL();
 			StepIDs = getStepIDs.GetExecutableSteps();
 			ActionParser AP = new ActionParser();
-			//Debug: System.out.println(StepIDs);
+			//Debug: 
+			System.out.println(StepIDs);
 			
 			log.info("Got all executable Step IDs...");
-			for(int i=1; i< StepIDs.size(); i++) {
+			//for(int i=1; i< StepIDs.size(); i++) {
+			//For testing custom runs
+			for(int i=4; i<5; i++) {
 				//Debug: System.out.println("Step IDs" + StepIDs.get(i));
 				StepsDetails=RS.readSteps(InputfilePath, SheetName, (String) StepIDs.get(i) );
 				//Debug:
 				if(StepsDetails!=null) {
 				//Debug: System.out.println("Step Details " + StepsDetails.get(0));
-				System.out.println("Step IDs" + StepIDs.get(i));	
+				String StepID = (String) StepIDs.get(i);
+				System.out.println("Step IDs" + StepID);	
 				
 				log.info("Executing Test Step " + StepIDs.get(i));
-				AP.FormatSteps((ArrayList) StepsDetails.get(0), drivertoUse);
+				AP.FormatSteps((ArrayList) StepsDetails.get(0), drivertoUse, StepID);
 				//KP.FormatSteps((ArrayList) StepsDetails.get(0), null);
 				} else {
 					log.warn("This Test Step ID is missing in test steps sheet " + StepIDs.get(i));
