@@ -166,8 +166,6 @@ public class ActionParser {
 	//Assert to verify
 	public void PageTitle(String temp1, String ExpectedText) {
 		String ActualText = title.visitURLTitle(driver);
-		//System.out.println("Complete Text : "  + ActualText);
-		//System.out.println("Expected Text : "  + ExpectedText);
 		if(ActualText.contains(ExpectedText)) {
 			System.out.println("PageTitlePass for " + ExpectedText);
 		}
