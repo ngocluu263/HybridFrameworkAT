@@ -68,7 +68,7 @@ public class RunSuite {
 			log.info("Got all executable Step IDs...");
 			//for(int i=1; i< StepIDs.size(); i++) {
 			//For testing custom runs
-			for(int i=4; i<5; i++) {
+			for(int i=1; i<2; i++) {
 				//Debug: System.out.println("Step IDs" + StepIDs.get(i));
 				StepsDetails=RS.readSteps(InputfilePath, SheetName, (String) StepIDs.get(i) );
 				//Debug:

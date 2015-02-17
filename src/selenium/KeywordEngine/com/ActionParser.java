@@ -32,6 +32,7 @@ import selenium.ObjectRepository.com.PageTitle;
 import selenium.ObjectRepository.com.PageURL;
 import selenium.ObjectRepository.com.ScreenShot;
 import selenium.ObjectRepository.com.Submit;
+import selenium.ObjectRepository.com.WebTable;
 import selenium.RunSuite.com.RunSuite;
 
 public class ActionParser {
@@ -52,6 +53,7 @@ public class ActionParser {
 	Submit SubmitBtn = new Submit();
 	Label txtlabel = new Label();
 	ScreenShot screenshot = new ScreenShot();
+	WebTable webTb = new  WebTable();
 
 	public void FormatSteps(ArrayList StepsArray, WebDriver drivertoUse, String StepID){
 		
@@ -165,8 +167,8 @@ public class ActionParser {
 	
 	//Assert to verify
 	public void PageTitle(String temp1, String ExpectedText) {
-		String ActualText = title.visitURLTitle(driver);
-		if(ActualText.contains(ExpectedText)) {
+		String ActualTitle = title.visitURLTitle(driver);
+		if(ActualTitle.contains(ExpectedText)) {
 			System.out.println("PageTitlePass for " + ExpectedText);
 		}
 		else {
@@ -192,6 +194,14 @@ public class ActionParser {
 		
 	}
 	
+	public void WebTable(String locator, String content) {
+		if(webTb.WebTableContent(locator, driver, content)) {
+			System.out.println("Web Table  " + content + " Verified for steps ID "  + CurrentStepID);
+		} else {
+			screenshot.SS(driver, CurrentStepID);
+		}
+	}
+	
 	public void ScreenShot(String temp1, String FileName) {
 		screenshot.SS(driver, FileName);
 	}
@@ -200,9 +210,15 @@ public class ActionParser {
 		driver.close();
 	}
 	
-
-	public void VerifyLabel(String loactor, String label) {
-		String result = txtlabel.CheckLabel(loactor, label, driver);
+	//Check on assert again to shoe error on JUnit console as well
+	public void VerifyLabel(String loactor, String Expectedlabel) {
+		String ActualText = txtlabel.CheckLabel(loactor, Expectedlabel, driver);
+		if(ActualText.contains(Expectedlabel)) {
+			System.out.println("Label " + Expectedlabel + "Verified for steps ID "  + CurrentStepID);
+		}
+		else {
+			screenshot.SS(driver, CurrentStepID);
+		}
 	}
 	
 	
