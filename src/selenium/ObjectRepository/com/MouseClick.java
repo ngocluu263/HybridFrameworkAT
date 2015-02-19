@@ -12,7 +12,7 @@ public class MouseClick  {
 		getDriver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 		WebElement mouse;
 		if(classFlag) {
-			mouse= getDriver.findElement(By.className(locator));
+			mouse= getDriver.findElement(By.xpath(locator));
 		} else {
 			mouse= getDriver.findElement(By.id(locator));
 		}

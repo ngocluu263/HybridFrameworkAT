@@ -11,6 +11,7 @@ public class KeyType {
 	public void TypeKeys(String locator, String content, WebDriver getDriver) {
 		getDriver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 		WebElement type = getDriver.findElement(By.id(locator));
+		type.clear();
 		type.sendKeys(content);
 	}
 }

@@ -14,11 +14,18 @@ import java.util.concurrent.TimeUnit;
 
 
 
+
+
+
+import org.openqa.selenium.Alert;
 //Selenium libs
 import org.openqa.selenium.By;
 import org.openqa.selenium.NotFoundException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+
+
+
 
 
 
@@ -32,6 +39,7 @@ import selenium.ObjectRepository.com.PageTitle;
 import selenium.ObjectRepository.com.PageURL;
 import selenium.ObjectRepository.com.ScreenShot;
 import selenium.ObjectRepository.com.Submit;
+import selenium.ObjectRepository.com.WebFrame;
 import selenium.ObjectRepository.com.WebTable;
 import selenium.RunSuite.com.RunSuite;
 
@@ -54,6 +62,7 @@ public class ActionParser {
 	Label txtlabel = new Label();
 	ScreenShot screenshot = new ScreenShot();
 	WebTable webTb = new  WebTable();
+	WebFrame FR = new WebFrame();
 
 	public void FormatSteps(ArrayList StepsArray, WebDriver drivertoUse, String StepID){
 		
@@ -178,8 +187,17 @@ public class ActionParser {
 	
 	//Selenium WebDriver
 	public void Type(String locator, String content) {
+		System.out.println("contents are " + content + " and Locator " + locator);
 		type.TypeKeys(locator, content, driver);
 	}
+	
+	/*
+	public void InputTxtArea (String locator, String content) {
+		driver.manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);
+		WebElement type = driver.findElement(By.id(locator));
+		type.clear();
+		//type.sendKeys(content);
+	} */
 	
 	//Selenium WebDriver
 	public void Submit(String locator, String temp) {
@@ -194,6 +212,25 @@ public class ActionParser {
 		
 	}
 	
+	
+	public void JSalertPopUp(String temp1, String OkCancel) {
+		Alert alert = driver.switchTo().alert();
+		if(OkCancel.equals("OK")) {
+			alert.accept();
+		} else {
+			alert.dismiss();
+		}
+		driver.switchTo().defaultContent();
+	}
+	
+	public void Insideframe(String locator, String xpath) {
+			driver=FR.FrameLocator(locator, driver);
+	}
+	
+	public void OutSideframe(String temp1, String temp2) {
+		driver.switchTo().defaultContent();
+	}
+
 	public void WebTable(String locator, String content) {
 		if(webTb.WebTableContent(locator, driver, content)) {
 			System.out.println("Web Table  " + content + " Verified for steps ID "  + CurrentStepID);
