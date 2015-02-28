@@ -11,12 +11,6 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
-
-
-
-
-
-
 import org.openqa.selenium.Alert;
 //Selenium libs
 import org.openqa.selenium.By;
@@ -25,13 +19,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 
-
-
-
-
-
 //Class libs
 import selenium.Conf.com.BrowserDriver;
+import selenium.ObjectRepository.com.AjaxRequest;
 import selenium.ObjectRepository.com.KeyType;
 import selenium.ObjectRepository.com.Label;
 import selenium.ObjectRepository.com.MouseClick;
@@ -50,7 +40,7 @@ public class ActionParser {
 	static Logger log = Logger.getLogger(RunSuite.class.getName());
 	String classPath = "selenium.KeywordEngine.com.ActionParser";
 	static WebDriver driver;
-	static boolean classFlag;
+	static int classFlag;
 	static String CurrentStepID;
 
 	//Page object interface class object declaration 
@@ -63,6 +53,7 @@ public class ActionParser {
 	ScreenShot screenshot = new ScreenShot();
 	WebTable webTb = new  WebTable();
 	WebFrame FR = new WebFrame();
+	AjaxRequest AJ = new AjaxRequest();
 
 	public void FormatSteps(ArrayList StepsArray, WebDriver drivertoUse, String StepID){
 		
@@ -108,21 +99,28 @@ public class ActionParser {
 				
 				//Find Parameter value from input file
 				String parameter1 = (String)(StepsArray.get(i+1));
-				String parameter2 = (String)(StepsArray.get(i+2)); 
-				if(parameter1.equals("NoValue") && parameter2.equals("NoValue")) {
+				String parameter2 = (String)(StepsArray.get(i+2));
+				String parameter3 = (String)(StepsArray.get(i+3)); 
+				if(parameter1.equals("NoValue") && parameter2.equals("NoValue") && parameter3.equals("NoValue") ) {
 					parameter = null;
 				} else {
 					if(parameter1 != "NoValue") {
 						parameter = parameter1;
-						classFlag=false;
+						classFlag=0;
 					} else {
-						parameter = parameter2;
-						classFlag=true;
+						if( parameter2 != "NoValue") {
+							parameter = parameter2;
+							classFlag=1;
+						}
+						else {
+							parameter = parameter3;
+							classFlag=2;
+						}
 					}
 				}
 				
 				//Find Data value from input file
-				String 	dataValue =  	 (String)(StepsArray.get(i+3));
+				String 	dataValue =  	 (String)(StepsArray.get(i+4));
 			/*	if(dataValue.equals("NoValue")) {
 					dataValue= "NoValue";
 				} */
@@ -154,7 +152,7 @@ public class ActionParser {
 			//Debug: System.out.println("Data Value " + StepsArray.get(i+3));
 			
 			//Jumping on next row in steps section 
-			i=i+3;
+			i=i+4;
 		}
 			
 		} //End on EntStep
@@ -237,6 +235,10 @@ public class ActionParser {
 		} else {
 			screenshot.SS(driver, CurrentStepID);
 		}
+	}
+	
+	public void AjaxClick(String locator, String temp2) {
+		AJ.AjaxCall(locator, driver);
 	}
 	
 	public void ScreenShot(String temp1, String FileName) {

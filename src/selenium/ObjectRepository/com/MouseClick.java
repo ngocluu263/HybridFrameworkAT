@@ -8,13 +8,17 @@ import org.openqa.selenium.WebElement;
 
 public class MouseClick  {
 	
-	public void LeftClick(String locator, WebDriver getDriver, boolean classFlag) {
+	public void LeftClick(String locator, WebDriver getDriver, int classFlag) {
 		getDriver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 		WebElement mouse;
-		if(classFlag) {
-			mouse= getDriver.findElement(By.xpath(locator));
-		} else {
+		if(classFlag == 0) {
 			mouse= getDriver.findElement(By.id(locator));
+		} else { 
+			if (classFlag == 1) {
+				mouse= getDriver.findElement(By.id(locator));
+			} else {
+					mouse= getDriver.findElement(By.xpath(locator));	
+			}
 		}
 		mouse.click();
 		getDriver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
