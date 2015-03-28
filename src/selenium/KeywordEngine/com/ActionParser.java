@@ -213,6 +213,7 @@ public class ActionParser {
 	
 	public void MouseHover(String locator, String content) {
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		driver.manage().window().maximize();
 		Actions action = new Actions(driver);
 		WebElement item = driver.findElement(By.id(locator));
 		System.out.println("Got element 1");
