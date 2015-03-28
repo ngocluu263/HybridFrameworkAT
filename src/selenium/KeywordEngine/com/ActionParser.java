@@ -36,6 +36,7 @@ import selenium.ObjectRepository.com.ScreenShot;
 import selenium.ObjectRepository.com.Submit;
 import selenium.ObjectRepository.com.WebFrame;
 import selenium.ObjectRepository.com.WebTable;
+import selenium.ObjectRepository.com.MouseHover;
 import selenium.RunSuite.com.RunSuite;
 
 public class ActionParser {
@@ -47,6 +48,7 @@ public class ActionParser {
 	static WebDriver driver;
 	static int classFlag;
 	static String CurrentStepID;
+	//Actions action = new Actions(driver);
 
 	//Page object interface class object declaration 
 	PageURL pagevisit = new PageURL();
@@ -59,6 +61,7 @@ public class ActionParser {
 	WebTable webTb = new  WebTable();
 	WebFrame FR = new WebFrame();
 	AjaxRequest AJ = new AjaxRequest();
+	MouseHover MH = new MouseHover();
 
 	public void FormatSteps(ArrayList StepsArray, WebDriver drivertoUse, String StepID){
 		
@@ -210,16 +213,16 @@ public class ActionParser {
 	public void RightClick(String temp1, String temp2) {
 		
 	}
-	
+
 	public void MouseHover(String locator, String content) {
-		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		//Actions action = new Actions(driver);
+		MH.MouseH(locator, driver, classFlag,content);
+		
+	/*	driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
 		Actions action = new Actions(driver);
 		WebElement item = driver.findElement(By.id(locator));
-		System.out.println("Got element 1");
 		WebElement submenu = driver.findElement(By.xpath(content));
-		//Actions ref=action.moveToElement(item);
-		System.out.println("Got element 2");
 		try {
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
@@ -227,19 +230,18 @@ public class ActionParser {
 			e.printStackTrace();
 		}
 		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-		//ref.moveToElement(driver.findElement(By.xpath(content))).click().build().perform();
-       action.moveToElement(item).perform();
-       try {
+       action.moveToElement(item).perform(); */
+      /* try {
 		Thread.sleep(2000);
 	} catch (InterruptedException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
-       action.click(submenu).perform(); 
+       action.click(submenu).perform(); */
 	}
 	
-	public void MenuMouseHover() {
-		
+	public void MouseHoverSubMenu(String locator) {
+
 	}
 	
 	
