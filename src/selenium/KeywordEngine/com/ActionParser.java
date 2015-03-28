@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.Alert;
@@ -17,6 +18,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NotFoundException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+
+
+
 
 
 //Class libs
@@ -206,7 +211,33 @@ public class ActionParser {
 		
 	}
 	
-	public void MouseHover(String temp1, String temp2) {
+	public void MouseHover(String locator, String content) {
+		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		Actions action = new Actions(driver);
+		WebElement item = driver.findElement(By.id(locator));
+		System.out.println("Got element 1");
+		WebElement submenu = driver.findElement(By.xpath(content));
+		//Actions ref=action.moveToElement(item);
+		System.out.println("Got element 2");
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+		//ref.moveToElement(driver.findElement(By.xpath(content))).click().build().perform();
+       action.moveToElement(item).perform();
+       try {
+		Thread.sleep(2000);
+	} catch (InterruptedException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+       action.click(submenu).perform(); 
+	}
+	
+	public void MenuMouseHover() {
 		
 	}
 	
@@ -237,8 +268,15 @@ public class ActionParser {
 		}
 	}
 	
-	public void AjaxClick(String locator, String temp2) {
-		AJ.AjaxCall(locator, driver);
+	public void AjaxLabel(String locator, String content) {
+		String Textfound = AJ.AjaxCallRead(locator, driver);
+		System.out.println("Actual label found: " + Textfound);
+		if(Textfound.contains(content)) {
+			System.out.println("Label " + content + "Verified for steps ID "  + CurrentStepID);
+		}
+		else {
+			screenshot.SS(driver, CurrentStepID);
+		}
 	}
 	
 	public void ScreenShot(String temp1, String FileName) {
@@ -252,6 +290,7 @@ public class ActionParser {
 	//Check on assert again to shoe error on JUnit console as well
 	public void VerifyLabel(String loactor, String Expectedlabel) {
 		String ActualText = txtlabel.CheckLabel(loactor, Expectedlabel, driver);
+		System.out.println("Actual label found: " + ActualText);
 		if(ActualText.contains(Expectedlabel)) {
 			System.out.println("Label " + Expectedlabel + "Verified for steps ID "  + CurrentStepID);
 		}
