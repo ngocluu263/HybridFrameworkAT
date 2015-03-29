@@ -217,27 +217,6 @@ public class ActionParser {
 	public void MouseHover(String locator, String content) {
 		//Actions action = new Actions(driver);
 		MH.MouseH(locator, driver, classFlag,content);
-		
-	/*	driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-		driver.manage().window().maximize();
-		Actions action = new Actions(driver);
-		WebElement item = driver.findElement(By.id(locator));
-		WebElement submenu = driver.findElement(By.xpath(content));
-		try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-       action.moveToElement(item).perform(); */
-      /* try {
-		Thread.sleep(2000);
-	} catch (InterruptedException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-       action.click(submenu).perform(); */
 	}
 	
 	public void MouseHoverSubMenu(String locator) {
