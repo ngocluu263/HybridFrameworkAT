@@ -36,7 +36,7 @@ import selenium.ObjectRepository.com.ScreenShot;
 import selenium.ObjectRepository.com.Submit;
 import selenium.ObjectRepository.com.WebFrame;
 import selenium.ObjectRepository.com.WebTable;
-import selenium.ObjectRepository.com.MouseHover;
+import selenium.ObjectRepository.com.MouseHoverMenu;
 import selenium.RunSuite.com.RunSuite;
 
 public class ActionParser {
@@ -61,7 +61,7 @@ public class ActionParser {
 	WebTable webTb = new  WebTable();
 	WebFrame FR = new WebFrame();
 	AjaxRequest AJ = new AjaxRequest();
-	MouseHover MH = new MouseHover();
+	MouseHoverMenu MH = new MouseHoverMenu();
 
 	public void FormatSteps(ArrayList StepsArray, WebDriver drivertoUse, String StepID){
 		
@@ -214,15 +214,9 @@ public class ActionParser {
 		
 	}
 
-	public void MouseHover(String locator, String content) {
-		//Actions action = new Actions(driver);
+	public void MouseHoverMenu(String locator, String content) {
 		MH.MouseH(locator, driver, classFlag,content);
 	}
-	
-	public void MouseHoverSubMenu(String locator) {
-
-	}
-	
 	
 	public void JSalertPopUp(String temp1, String OkCancel) {
 		Alert alert = driver.switchTo().alert();
