@@ -7,7 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
-public class MouseHover {
+public class MouseHoverMenu {
 	public Actions  MouseH (String locator, WebDriver getDriver, int classFlag, String Content) {
 		getDriver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		getDriver.manage().window().maximize();
