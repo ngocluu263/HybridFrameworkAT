@@ -213,7 +213,7 @@ public class ActionParser {
 	}
 	
 	
-	public void DropdownOptionClick (String locator, String content) {
+	public void DropdownOptionClick(String locator, String content) {
 		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 		//Read about select on Selenium API
 		//Notes** Try to read first API and then work
