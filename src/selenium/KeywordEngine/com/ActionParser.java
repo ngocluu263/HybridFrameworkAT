@@ -24,6 +24,8 @@ import org.openqa.selenium.interactions.Actions;
 
 
 
+import org.openqa.selenium.support.ui.Select;
+
 //Class libs
 import selenium.Conf.com.BrowserDriver;
 import selenium.ObjectRepository.com.AjaxRequest;
@@ -171,7 +173,7 @@ public class ActionParser {
 	//Actions are the input activities and input types. User can either type or click. Based on user input Action will executed.
 	
 	//Selenium WebDriver
-	public void VisitURL(String temp, String data) {
+	public void VisitURL(String locator, String data) {
 		pagevisit.visitURL(data, driver);		
 	}
 	
@@ -209,6 +211,16 @@ public class ActionParser {
 	public void Submit(String locator, String temp) {
 		SubmitBtn.SubmitPage(locator, driver, classFlag);
 	}
+	
+	
+	public void DropdownOptionClick (String locator, String content) {
+		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+		//Read about select on Selenium API
+		//Notes** Try to read first API and then work
+		Select droplist = new Select(driver.findElement(By.id(locator)));   
+		droplist.selectByVisibleText(content);
+	}
+
 	
 	public void RightClick(String temp1, String temp2) {
 		
