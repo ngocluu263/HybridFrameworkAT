@@ -177,7 +177,7 @@ public class ActionParser {
 		pagevisit.visitURL(data, driver);		
 	}
 	
-	//Selenium WebDriver
+	//Selenium WebDriver MouseClick
 	public void LeftClick(String locator, String temp1) {
 		click.LeftClick(locator, driver, classFlag);		
 	}
@@ -277,7 +277,7 @@ public class ActionParser {
 	
 	//Check on assert again to shoe error on JUnit console as well
 	public void VerifyLabel(String loactor, String Expectedlabel) {
-		String ActualText = txtlabel.CheckLabel(loactor, Expectedlabel, driver);
+		String ActualText = txtlabel.CheckLabel(loactor, Expectedlabel, driver, classFlag);
 		System.out.println("Actual label found: " + ActualText);
 		if(ActualText.contains(Expectedlabel)) {
 			System.out.println("Label " + Expectedlabel + "Verified for steps ID "  + CurrentStepID);

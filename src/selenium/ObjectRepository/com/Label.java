@@ -8,9 +8,18 @@ import org.openqa.selenium.WebElement;
 
 public class Label {
 
-	public String CheckLabel(String loactor, String label, WebDriver getDriver) {
+	public String CheckLabel(String locator, String label, WebDriver getDriver, int classFlag) {
 		getDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		WebElement element = getDriver.findElement(By.id(loactor));
+		WebElement element;
+		if(classFlag == 0) {
+			element= getDriver.findElement(By.id(locator));
+		} else { 
+			if (classFlag == 1) {
+				element= getDriver.findElement(By.id(locator));
+			} else {
+				element= getDriver.findElement(By.xpath(locator));	
+			}
+		}
 		String labelText = element.getText();
 		return labelText;
 	}
