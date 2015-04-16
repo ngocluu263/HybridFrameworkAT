@@ -1,24 +1,19 @@
 package selenium.KeywordEngine.com;
 
 //Java libs
-import org.junit.Assert;
-import org.junit.Test;
 import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 
-import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.Alert;
 //Selenium libs
 import org.openqa.selenium.By;
-import org.openqa.selenium.NotFoundException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 
 
 
@@ -26,8 +21,8 @@ import org.openqa.selenium.interactions.Actions;
 
 import org.openqa.selenium.support.ui.Select;
 
+
 //Class libs
-import selenium.Conf.com.BrowserDriver;
 import selenium.ObjectRepository.com.AjaxRequest;
 import selenium.ObjectRepository.com.KeyType;
 import selenium.ObjectRepository.com.Label;
@@ -45,7 +40,13 @@ public class ActionParser {
 	
 	//Global Variables
 	WebElement Locator=null;
+	
+	//Logging Test suite execution details
 	static Logger log = Logger.getLogger(RunSuite.class.getName());
+	
+	//Logging result details
+	//static Logger Resultlog = Logger.getLogger(RunSuite.class.getName());
+	
 	String classPath = "selenium.KeywordEngine.com.ActionParser";
 	static WebDriver driver;
 	static int classFlag;
@@ -271,20 +272,37 @@ public class ActionParser {
 		screenshot.SS(driver, FileName);
 	}
 	
+	public void VerifyLinkTxt(String locator, String content) {
+		
+	}
+	
+	public void VerifyURL(String locator, String content) {
+		
+	}
+	
 	public void CloseBrowser(String temp1, String temp2) {
 		driver.close();
 	}
 	
 	//Check on assert again to shoe error on JUnit console as well
 	public void VerifyLabel(String loactor, String Expectedlabel) {
+		//Result logging in file format and configuration 
+		Logger Resultlog = Logger.getLogger(RunSuite.class.getName());
+		PropertyConfigurator.configure("Configuration/result.log.properties");
+		
 		String ActualText = txtlabel.CheckLabel(loactor, Expectedlabel, driver, classFlag);
 		System.out.println("Actual label found: " + ActualText);
+		
 		if(ActualText.contains(Expectedlabel)) {
 			System.out.println("Label " + Expectedlabel + "Verified for steps ID "  + CurrentStepID);
+			Resultlog.info("Test Case " + CurrentStepID + " Pass");
 		}
 		else {
 			screenshot.SS(driver, CurrentStepID);
-		}
+			Resultlog.info("Test Case " + CurrentStepID + " Fail");
+			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		} 
+		
 	}
 	
 	

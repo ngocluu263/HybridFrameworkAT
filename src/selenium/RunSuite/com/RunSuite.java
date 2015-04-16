@@ -5,8 +5,10 @@ import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
+import org.junit.AfterClass;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
+
 
 
 
@@ -68,7 +70,7 @@ public class RunSuite {
 			log.info("Got all executable Step IDs...");
 			//for(int i=1; i< StepIDs.size(); i++) {
 			//For testing custom runs
-			for(int i=1; i<2; i++) {
+			for(int i=1; i<4; i++) {
 				//Debug: System.out.println("Step IDs" + StepIDs.get(i));
 				StepsDetails=RS.readSteps(InputfilePath, SheetName, (String) StepIDs.get(i) );
 				//Debug:
@@ -85,6 +87,10 @@ public class RunSuite {
 				}
 			}			
 		}
-
+		
+		@AfterClass
+		public static void ReportGenerate() {
+			System.out.println("Report Section");
+		}
 		
 }
