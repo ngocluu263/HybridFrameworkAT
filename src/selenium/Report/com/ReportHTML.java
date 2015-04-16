@@ -1,5 +1,5 @@
 package selenium.Report.com;
 
-public class WriteXLreport {
-
+public class ReportHTML {
+	
 }
