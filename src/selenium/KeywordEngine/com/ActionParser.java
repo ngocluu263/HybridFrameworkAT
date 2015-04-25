@@ -8,6 +8,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.LogManager;
 
 import org.openqa.selenium.Alert;
 //Selenium libs
@@ -15,11 +16,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-
-
-
-
 import org.openqa.selenium.support.ui.Select;
+
 
 
 //Class libs
@@ -42,10 +40,10 @@ public class ActionParser {
 	WebElement Locator=null;
 	
 	//Logging Test suite execution details
-	static Logger log = Logger.getLogger(RunSuite.class.getName());
+	//static Logger log = Logger.getLogger(RunSuite.class.getName());
 	
 	//Logging result details
-	//static Logger Resultlog = Logger.getLogger(RunSuite.class.getName());
+	static Logger log = Logger.getLogger(ActionParser.class.getName());
 	
 	String classPath = "selenium.KeywordEngine.com.ActionParser";
 	static WebDriver driver;
@@ -276,8 +274,24 @@ public class ActionParser {
 		
 	}
 	
-	public void VerifyURL(String locator, String content) {
+	public void VerifyURL(String locator, String ExpectedURL) {
+		//PropertyConfigurator.configure("Configuration/log.properties");
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		String ActualURL = driver.getCurrentUrl();
+		System.out.println("Actual URL"  + ActualURL);
+		System.out.println("ExpectedValuel URL"  + ExpectedURL);
 		
+		if(ActualURL.contains(ExpectedURL)) {
+			System.out.println("Label " + ExpectedURL + "Verified for steps ID "  + CurrentStepID);
+			log.info("Test Case " + CurrentStepID + " Pass");
+			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		}
+		else {
+			screenshot.SS(driver, CurrentStepID);
+			log.info("Test Case " + CurrentStepID + " Fail");
+			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		}
+
 	}
 	
 	public void CloseBrowser(String temp1, String temp2) {
@@ -287,22 +301,23 @@ public class ActionParser {
 	//Check on assert again to shoe error on JUnit console as well
 	public void VerifyLabel(String loactor, String Expectedlabel) {
 		//Result logging in file format and configuration 
-		Logger Resultlog = Logger.getLogger(RunSuite.class.getName());
-		PropertyConfigurator.configure("Configuration/result.log.properties");
+		//PropertyConfigurator.configure("Configuration/log.properties");
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		
 		String ActualText = txtlabel.CheckLabel(loactor, Expectedlabel, driver, classFlag);
 		System.out.println("Actual label found: " + ActualText);
 		
 		if(ActualText.contains(Expectedlabel)) {
 			System.out.println("Label " + Expectedlabel + "Verified for steps ID "  + CurrentStepID);
-			Resultlog.info("Test Case " + CurrentStepID + " Pass");
+			log.info("Test Case " + CurrentStepID + " Pass");
+			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		}
 		else {
 			screenshot.SS(driver, CurrentStepID);
-			Resultlog.info("Test Case " + CurrentStepID + " Fail");
+			log.info("Test Case " + CurrentStepID + " Fail");
 			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		} 
-		
+
 	}
 	
 	

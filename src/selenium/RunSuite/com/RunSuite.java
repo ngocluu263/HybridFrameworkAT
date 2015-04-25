@@ -1,15 +1,18 @@
 package selenium.RunSuite.com;
 
 //Java lib import
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
-
-
 
 
 
@@ -18,9 +21,9 @@ import selenium.Conf.com.ConfigurationInterface;
 import selenium.Conf.com.BrowserDriver;
 import selenium.Conf.com.ReadTestEnvConfiguration;
 import selenium.KeywordEngine.com.ActionParser;
+import selenium.Report.com.LogAnalyzer;
 import selenium.XLparser.com.ReadXL;
 import selenium.XLparser.com.TestSteps;
-
 
 /**
  * 
@@ -37,15 +40,38 @@ public class RunSuite {
 		//Logging details in log.property file 
 		static Logger log = Logger.getLogger(RunSuite.class.getName());
 		
+		/*
 		//Read configuration file for test case steps
 		ConfigurationInterface conf = new ReadTestEnvConfiguration();
 		String InputfilePath = conf.getInputfilePath();
 		String SheetName = conf.getInputTCStepsSheetName();
 		String getDriver = conf.DriverToUse();
+		*/
+		//LogAnalyzer 
+		static LogAnalyzer LA = new LogAnalyzer();		
 		
 		//Global Variables
 		TestSteps RS = new TestSteps();
 		ArrayList StepsDetails = new ArrayList();
+		
+		/*
+		@BeforeClass
+		//Clean log files before start
+		public static void CleanLogFiles() {
+		    try{
+		        BufferedWriter ReportLog = new BufferedWriter(new FileWriter("F:\\Automation\\Selenuim\\workspace\\HybridFramework\\OutputXL\\ResultLogs.log"));
+		        ReportLog.write("");
+		        ReportLog.flush();
+		        ReportLog.close();
+		/*       BufferedWriter SuiteLog = new BufferedWriter(new FileWriter("F:\\Automation\\Selenuim\\workspace\\HybridFramework\\Logs\\logs.log"));
+		        SuiteLog.write("");
+		        SuiteLog.flush();
+		        SuiteLog.close(); */
+		/*    }catch(IOException ioe){
+		        // You should really do something more appropriate here
+		        ioe.printStackTrace();
+		    }
+		}
 		
 		@Test
 		public void TestExecution() {
@@ -87,10 +113,19 @@ public class RunSuite {
 				}
 			}			
 		}
+		*/
 		
-		@AfterClass
-		public static void ReportGenerate() {
-			System.out.println("Report Section");
+		//@AfterClass
+		@Test
+		public void ReportGenerateTest() {
+			System.out.println("Generating Report");
+			try {
+				LA.ReadFile();
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		}
 		
 }

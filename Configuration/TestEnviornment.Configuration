@@ -14,7 +14,7 @@ Browser=chrome
 //Sample values = firefox / chrome / safari
 
 
-InputFilePath=/Users/ashv/Automation/workspace/HybridFramework/InputXL/TestData.xls
+InputFilePath=F:\\Automation\\Selenuim\\workspace\\HybridFramework\\InputXL\\TestData.xls
 //This file is the one where you have defined all test cases and test data.
 //provide one file path at a time
 //Sample values based on your OS
