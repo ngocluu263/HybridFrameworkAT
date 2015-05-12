@@ -21,7 +21,7 @@ public class LogAnalyzer {
 	try {
 		br = new BufferedReader(new FileReader(file));
 		int rownum=0;
-		RowArr.add(new ArrayList());		
+		//RowArr.add(new ArrayList());		
 		
 		for(String line; (line = br.readLine()) != null;) {
 		    // process the line.
