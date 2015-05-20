@@ -6,6 +6,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import selenium.Report.com.*;
+
 public class LogAnalyzer {
 	
 	//Global variables
@@ -21,7 +23,6 @@ public class LogAnalyzer {
 	try {
 		br = new BufferedReader(new FileReader(file));
 		int rownum=0;
-		//RowArr.add(new ArrayList());		
 		
 		for(String line; (line = br.readLine()) != null;) {
 		    // process the line.
@@ -31,7 +32,14 @@ public class LogAnalyzer {
 				RowArr.add(new ArrayList());		
 				//Debug: System.out.println(RowData);
 				//((ArrayList)RowArr.get(rownum)).add(RowData);
-				((ArrayList)RowArr.get(rownum)).add(RowData);
+				String[] cbuf = RowData.split(" ");
+				
+				for(int li=0; li<cbuf.length ; li++) {
+					//System.out.println(cbuf[li]);
+					((ArrayList)RowArr.get(rownum)).add(cbuf[li]);
+				}
+				
+				//((ArrayList)RowArr.get(rownum)).add(RowData);
 				//RowArr.set(rownum, RowData);
 				//RowArr.add(rownum, RowData);
 				rownum++;
@@ -43,12 +51,34 @@ public class LogAnalyzer {
 	}
 	
 	
-	//Debug:
-	//System.out.print( (String)((ArrayList)RowArr.get(0)).get(1));  
-	for(int r=0; r<RowArr.size(); r++){
+	//Debug:  System.out.print((String)((ArrayList)RowArr.get(0)).get(0));  
+/*	for(int r=0; r<RowArr.size(); r++){
 		System.out.println(RowArr.get(r));  
-	} 
+		
+	} */
 	
+	 /* Debug: 
+	for(int r=0; r<RowArr.size(); r++){
+		String newLine = System.getProperty("line.separator");
+		System.out.println(newLine);
+		for(int c=0; c <((ArrayList)RowArr.get(r)).size(); c++) {
+			System.out.print("Row / Col no. " +  r + "/" + c + " " + ((String)((ArrayList)RowArr.get(r)).get(c) + "  "));  
+		}
+	} */ 
+	
+	//Generate HTML based on data
+	Reportdata();
 }
+	public void Reportdata() {
+		for(int r=0; r<RowArr.size(); r++){
+			System.out.println(RowArr.get(r));  
+		} 
+		
+		ReportHTML = new ReportHTML();
+		
+	}
+	
+	
+	
 	
 }
