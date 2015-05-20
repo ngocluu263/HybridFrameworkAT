@@ -13,13 +13,17 @@ public class ReportHTML {
 	DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
 	Date date = new Date(0);
 	
-	public void RptHtmlRender() {
+	public boolean RptHtmlRender() {
 		try {
-			OutputStream htmlfile= new FileOutputStream(new File("F:\\Automation\\Selenuim\\workspace\\HybridFramework\\Report\\" + date));
+			OutputStream htmlfile= new FileOutputStream(new File("/Users/ashv/Automation/workspace/HybridFramework/" + date));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		
+		
+		return true;
 	}
 	
 	

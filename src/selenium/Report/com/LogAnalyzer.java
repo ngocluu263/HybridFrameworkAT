@@ -13,8 +13,13 @@ public class LogAnalyzer {
 	//Global variables
 	ArrayList RowArr = new ArrayList();
 	
+	//Report Object
+	ReportHTML rptObj= new ReportHTML();
+	
+	
+	//Method to read log file and parse data for pass and fail test cases
 	public void ReadFile() throws FileNotFoundException {
-	String file="F:\\Automation\\Selenuim\\workspace\\HybridFramework\\Logs\\logs.log";
+	String file="/Users/ashv/Automation/workspace/HybridFramework/Logs/logs.log";
 	BufferedReader br;
 	
 	//intialize array list
@@ -74,9 +79,15 @@ public class LogAnalyzer {
 			System.out.println(RowArr.get(r));  
 		} 
 		
-		ReportHTML = new ReportHTML();
-		
+		Boolean reportGen=false; 
+		reportGen=rptObj.RptHtmlRender();
+		if(reportGen) {
+			System.out.println("Report Generated Successfully");
+		} else {
+			System.out.println("Report Generatation Failed");
+		}
 	}
+	
 	
 	
 	
