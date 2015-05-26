@@ -19,8 +19,9 @@ public class LogAnalyzer {
 	
 	//Method to read log file and parse data for pass and fail test cases
 	public void ReadFile() throws FileNotFoundException {
-	String file="/Users/ashv/Automation/workspace/HybridFramework/Logs/logs.log";
-	BufferedReader br;
+	//String file="/Users/ashv/Automation/workspace/HybridFramework/Logs/logs.log";
+		String file="F:\\Automation\\Selenuim\\workspace\\HybridFramework\\Logs\\logs.log";
+		BufferedReader br;
 	
 	//intialize array list
 	//RowArr.add(new ArrayList());
