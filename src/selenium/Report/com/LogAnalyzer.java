@@ -81,7 +81,7 @@ public class LogAnalyzer {
 		} 
 		
 		Boolean reportGen=false; 
-		reportGen=rptObj.RptHtmlRender();
+		reportGen=rptObj.RptHtmlRender(RowArr);
 		if(reportGen) {
 			System.out.println("Report Generated Successfully");
 		} else {
