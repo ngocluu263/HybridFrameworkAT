@@ -81,7 +81,8 @@ public class ReportHTML {
 			//length of new file should be (size (template file) + number of test cases in output * 7 (number of lines to be added for single test cases).			
 			int length= size+(7*Output.size());
 			
-			
+			//Debug:
+			System.out.println(" Size of Test Logs results" + Output.size());
 			//Debug:
 			for(int r=0; r<Output.size(); r++){
 				String newLine = System.getProperty("line.separator");
@@ -92,19 +93,22 @@ public class ReportHTML {
 			} 
 			
 			//Placing result in html table, based on log analyzer output
-			/*
-			for(int j=0; j<=length; j++) {
+			int count=0;
+			for(int j=0; j<=length-1; j++) {
 				if(generateRptHtml[j].contains("Start Body")) {
-					for(int row=0; row<=Output.size(); row++) {
-						
+					for(int row=0; row<Output.size(); row++) {
 						generateRptHtml[j+1] = "<tr>";
-						
-						
+						generateRptHtml[j+2]=("<td>" + count +  "</td>");
+						generateRptHtml[j+3]=("<td>" + ((String)((ArrayList)Output.get(row)).get(8)) +  "</td>");
+						generateRptHtml[j+4]=("<td>" + ((String)((ArrayList)Output.get(row)).get(9)) +  "</td>");
+						generateRptHtml[j+5]=("<td>" + ((String)((ArrayList)Output.get(row)).get(0)) + " " + ((String)((ArrayList)Output.get(row)).get(1)) +  "</td>");
+						generateRptHtml[j+6]=("<td>" + "Comments" +  "</td>");
 						generateRptHtml[j+7] = "</tr>";
-						j=j+7;
+						j=j+8;
+						count++;
 					}
 				}
-			} */
+			} 
 			
 			
 			//Copy content in printhtml format to file
