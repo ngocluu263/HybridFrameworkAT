@@ -36,7 +36,7 @@ public class ReportHTML {
 		File filename = new File("F:\\Automation\\Selenuim\\workspace\\HybridFramework\\Report\\" + Curdate + ".html"); 
 		
 		
-		System.out.println(filename);
+		//Debug: System.out.println(filename);
 
 		try {
 			//Generate HTML report in table format
@@ -56,13 +56,11 @@ public class ReportHTML {
 			//Placing header in html report based on configuration file
 			for(int i=0; i<=size-1; i++) {
 				if(generateRptHtml[i].contains("Release")) {
-					//debug:
-					System.out.println("value found in 1st row" + generateRptHtml[i]);
+					//debug: System.out.println("value found in 1st row" + generateRptHtml[i]);
 					generateRptHtml[i+1]=("<td>" + " 1.0 " +  "</td>");
 				}
 				if(generateRptHtml[i].contains("Browser")) {
-					//debug:
-					System.out.println("value found in 2nd row" + generateRptHtml[i]);
+					//debug: System.out.println("value found in 2nd row" + generateRptHtml[i]);
 					generateRptHtml[i+1]=("<td>" + " Chrome " +  "</td>");
 				}
 				if(generateRptHtml[i].contains("Environment")) {
@@ -80,10 +78,18 @@ public class ReportHTML {
 			}	
 			
 			//Final report file lines:
-			//length of new file should be (size (template file) + number of test cases in output * 7 (number of lines to be added for single test cases).
-			System.out.println("Data in Array " + Output);
+			//length of new file should be (size (template file) + number of test cases in output * 7 (number of lines to be added for single test cases).			
 			int length= size+(7*Output.size());
 			
+			
+			//Debug:
+			for(int r=0; r<Output.size(); r++){
+				String newLine = System.getProperty("line.separator");
+				System.out.println(newLine);
+				for(int c=0; c <((ArrayList)Output.get(r)).size(); c++) {
+					System.out.print("Row / Col no. " +  r + "/" + c + " " + ((String)((ArrayList)Output.get(r)).get(c) + "  "));  
+				}
+			} 
 			
 			//Placing result in html table, based on log analyzer output
 			/*
