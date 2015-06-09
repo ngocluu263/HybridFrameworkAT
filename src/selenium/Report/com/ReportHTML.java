@@ -12,22 +12,32 @@ import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.TimeZone;
 
 public class ReportHTML {
 	
-	Date date = new Date(0);
-	DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss dd-MM-yyyy");
-	File filename = new File("/Users/ashv/Automation/workspace/HybridFramework/Report/" + dateFormat.format(date) + ".html"); 
-	//File filename = new File("F:\\Automation\\Selenuim\\workspace\\HybridFramework\\Report" + dateFormat.format(date) + ".html"); 
-	
+
 	boolean copyheader=false;
 	boolean copybody=false;
 	int size = 0;
 	String row = "";
-	String[] templatedata = new String[500];
+	String[] generateRptHtml = new String[500];
 	
 	public boolean RptHtmlRender(ArrayList Output) {
+
+		Date date = new Date(0);
+		DateFormat dateFormat = new SimpleDateFormat("hh_mm_ss__dd_mm_yyyy");
+		Calendar cal = Calendar.getInstance();
+		String Curdate=dateFormat.format(cal.getTime());
+		//System.out.println("Time Zone " + dateFormat.format(cal.getTime()));
+		
+		//File filename = new File("/Users/ashv/Automation/workspace/HybridFramework/Report/" + dateFormat.format(date) + ".html"); 
+		File filename = new File("F:\\Automation\\Selenuim\\workspace\\HybridFramework\\Report\\" + Curdate + ".html"); 
+		
+		
 		System.out.println(filename);
+
 		try {
 			//Generate HTML report in table format
 			OutputStream htmlfile= new FileOutputStream(filename); //Create html file
@@ -37,49 +47,64 @@ public class ReportHTML {
 			
 			while( (row=templateHTML.readLine()) != null) {
 			    // count and copy content from template.
-				templatedata[size] = row;
+				generateRptHtml[size] = row;
 				size++;
 			}
+			//debug:
+			System.out.println("Size of template file" + size);
 			
 			//Placing header in html report based on configuration file
-			for(int i=0; i<=size; i++) {
-				if(templatedata[i].contains("Release")) {
-					templatedata[i+1]=("<td>" + " 1.0 " +  "</td>");
+			for(int i=0; i<=size-1; i++) {
+				if(generateRptHtml[i].contains("Release")) {
+					//debug:
+					System.out.println("value found in 1st row" + generateRptHtml[i]);
+					generateRptHtml[i+1]=("<td>" + " 1.0 " +  "</td>");
 				}
-				if(templatedata[i].contains("Browser")) {
-					templatedata[i+1]=("<td>" + " Chrome " +  "</td>");
+				if(generateRptHtml[i].contains("Browser")) {
+					//debug:
+					System.out.println("value found in 2nd row" + generateRptHtml[i]);
+					generateRptHtml[i+1]=("<td>" + " Chrome " +  "</td>");
 				}
-				if(templatedata[i].contains("Environment")) {
-					templatedata[i+1]=("<td>" + " Windows " +  "</td>");
+				if(generateRptHtml[i].contains("Environment")) {
+					generateRptHtml[i+1]=("<td>" + " Windows " +  "</td>");
 				}
-				if(templatedata[i].contains("Total Test Cases")) {
-					templatedata[i+1]=("<td>" + " 10 " +  "</td>");
+				if(generateRptHtml[i].contains("Total Test Cases")) {
+					generateRptHtml[i+1]=("<td>" + " 10 " +  "</td>");
 				}
-				if(templatedata[i].contains("Total Pass")) {
-					templatedata[i+1]=("<td>" + " Windows " +  "</td>");
+				if(generateRptHtml[i].contains("Total Pass")) {
+					generateRptHtml[i+1]=("<td>" + " 10 " +  "</td>");
 				}
-				if(templatedata[i].contains("Total Fail")) {
-					templatedata[i+1]=("<td>" + " 10 " +  "</td>");
+				if(generateRptHtml[i].contains("Total Fail")) {
+					generateRptHtml[i+1]=("<td>" + " 0 " +  "</td>");
 				}
 			}	
 			
 			//Final report file lines:
+			//length of new file should be (size (template file) + number of test cases in output * 7 (number of lines to be added for single test cases).
+			System.out.println("Data in Array " + Output);
 			int length= size+(7*Output.size());
+			
+			
 			//Placing result in html table, based on log analyzer output
+			/*
 			for(int j=0; j<=length; j++) {
-				if(templatedata[j].contains("Start Body")) {
+				if(generateRptHtml[j].contains("Start Body")) {
 					for(int row=0; row<=Output.size(); row++) {
 						
-						templatedata[j+1] = "<tr>";
+						generateRptHtml[j+1] = "<tr>";
 						
 						
-						templatedata[j+7] = "</tr>";
+						generateRptHtml[j+7] = "</tr>";
 						j=j+7;
 					}
 				}
+			} */
+			
+			
+			//Copy content in printhtml format to file
+			for(int i=0; i<=(size+7); i++) { 
+				printhtml.println(generateRptHtml[i]);
 			}
-			
-			
 			
 			//Closing file and open streams
 			printhtml.close();
