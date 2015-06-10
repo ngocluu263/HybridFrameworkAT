@@ -21,13 +21,14 @@ public class ReportHTML {
 	boolean copyheader=false;
 	boolean copybody=false;
 	int size = 0;
+	int reportSize=0;
 	String row = "";
 	String[] generateRptHtml = new String[500];
 	
 	public boolean RptHtmlRender(ArrayList Output) {
 
 		Date date = new Date(0);
-		DateFormat dateFormat = new SimpleDateFormat("hh_mm_ss__dd_mm_yyyy");
+		DateFormat dateFormat = new SimpleDateFormat("hh_mm_ss__dd_MM_yyyy");
 		Calendar cal = Calendar.getInstance();
 		String Curdate=dateFormat.format(cal.getTime());
 		//System.out.println("Time Zone " + dateFormat.format(cal.getTime()));
@@ -50,8 +51,7 @@ public class ReportHTML {
 				generateRptHtml[size] = row;
 				size++;
 			}
-			//debug:
-			System.out.println("Size of template file" + size);
+			//debug: System.out.println("Size of template file" + size);
 			
 			//Placing header in html report based on configuration file
 			for(int i=0; i<=size-1; i++) {
@@ -80,10 +80,10 @@ public class ReportHTML {
 			//Final report file lines:
 			//length of new file should be (size (template file) + number of test cases in output * 7 (number of lines to be added for single test cases).			
 			int length= size+(7*Output.size());
+			//Debug: System.out.println("length of loop " + length);
 			
-			//Debug:
-			System.out.println(" Size of Test Logs results" + Output.size());
-			//Debug:
+			//Debug: System.out.println(" Size of Test Logs results" + Output.size());
+			
 			for(int r=0; r<Output.size(); r++){
 				String newLine = System.getProperty("line.separator");
 				System.out.println(newLine);
@@ -94,9 +94,10 @@ public class ReportHTML {
 			
 			//Placing result in html table, based on log analyzer output
 			int count=0;
-			for(int j=0; j<=length-1; j++) {
+			for(int j=0; j<length; j++) {     //This loop need to be executed only once
 				if(generateRptHtml[j].contains("Start Body")) {
 					for(int row=0; row<Output.size(); row++) {
+						//Debug: System.out.println("value of j " + j);
 						generateRptHtml[j+1] = "<tr>";
 						generateRptHtml[j+2]=("<td>" + count +  "</td>");
 						generateRptHtml[j+3]=("<td>" + ((String)((ArrayList)Output.get(row)).get(8)) +  "</td>");
@@ -104,15 +105,25 @@ public class ReportHTML {
 						generateRptHtml[j+5]=("<td>" + ((String)((ArrayList)Output.get(row)).get(0)) + " " + ((String)((ArrayList)Output.get(row)).get(1)) +  "</td>");
 						generateRptHtml[j+6]=("<td>" + "Comments" +  "</td>");
 						generateRptHtml[j+7] = "</tr>";
-						j=j+8;
+						j=j+7;
 						count++;
 					}
-				}
-			} 
+					 //debug:  System.out.println("value of j " + j);
+					reportSize = j;
+					j=length;		//stopping loop once meet the matching criteria 
+					//debug: System.out.println("value of length " + length);	
+				}	
+			}
 			
+			//closing html file tags
+			generateRptHtml[reportSize+1] = "</table>";
+			generateRptHtml[reportSize+2] = "</body>";
+			generateRptHtml[reportSize+3] = "</html>";
+			
+			//Debug: System.out.println("value of size " + size);
 			
 			//Copy content in printhtml format to file
-			for(int i=0; i<=(size+7); i++) { 
+			for(int i=0; i<=(reportSize+3); i++) { 
 				printhtml.println(generateRptHtml[i]);
 			}
 			
