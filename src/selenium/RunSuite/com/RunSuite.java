@@ -40,13 +40,13 @@ public class RunSuite {
 		//Logging details in log.property file 
 		static Logger log = Logger.getLogger(RunSuite.class.getName());
 		
-		/*
+		
 		//Read configuration file for test case steps
 		ConfigurationInterface conf = new ReadTestEnvConfiguration();
 		String InputfilePath = conf.getInputfilePath();
 		String SheetName = conf.getInputTCStepsSheetName();
 		String getDriver = conf.DriverToUse();
-		*/
+		
 		//LogAnalyzer 
 		static LogAnalyzer LA = new LogAnalyzer();		
 		
@@ -54,7 +54,7 @@ public class RunSuite {
 		TestSteps RS = new TestSteps();
 		ArrayList StepsDetails = new ArrayList();
 		
-		/*
+		
 		@BeforeClass
 		//Clean log files before start
 		public static void CleanLogFiles() {
@@ -67,7 +67,7 @@ public class RunSuite {
 		        SuiteLog.write("");
 		        SuiteLog.flush();
 		        SuiteLog.close(); */
-		/*    }catch(IOException ioe){
+		    }catch(IOException ioe){
 		        // You should really do something more appropriate here
 		        ioe.printStackTrace();
 		    }
@@ -113,7 +113,7 @@ public class RunSuite {
 				}
 			}			
 		}
-		*/
+		
 		
 		//@AfterClass
 		@Test
