@@ -39,9 +39,6 @@ public class ActionParser {
 	//Global Variables
 	WebElement Locator=null;
 	
-	//Logging Test suite execution details
-	//static Logger log = Logger.getLogger(RunSuite.class.getName());
-	
 	//Logging result details
 	static Logger log = Logger.getLogger(ActionParser.class.getName());
 	
