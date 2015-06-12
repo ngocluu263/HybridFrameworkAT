@@ -31,5 +31,11 @@ OutputFilePath=/Users/ashv/Automation/workspace/HybridFramework/OutputXL/Executi
 //provide one file path at a time
 //Sample values same as for Input paths
 
+//Provide DB connection details, currently considering MS SQL 
+DBConnectionString=c2pin-lap-200
+DBName=SeleniumTest
+DBUserID=sa
+DBPassword=password
+
  
 
