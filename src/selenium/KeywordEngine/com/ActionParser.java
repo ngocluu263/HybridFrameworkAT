@@ -305,10 +305,11 @@ public class ActionParser {
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		
 		String ActualText = txtlabel.CheckLabel(loactor, Expectedlabel, driver, classFlag);
+		System.out.println("Expected label Should be: " + Expectedlabel);
 		System.out.println("Actual label found: " + ActualText);
 		
 		if(ActualText.contains(Expectedlabel)) {
-			System.out.println("Label " + Expectedlabel + "Verified for steps ID "  + CurrentStepID);
+			System.out.println("Label " + Expectedlabel + " Verified for steps ID "  + CurrentStepID);
 			log.info("Test Case " + CurrentStepID + " Pass");
 			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		}

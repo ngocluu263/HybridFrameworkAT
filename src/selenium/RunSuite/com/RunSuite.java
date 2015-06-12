@@ -9,10 +9,14 @@ import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
+import org.junit.After;
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
+
+
 
 
 
@@ -47,26 +51,24 @@ public class RunSuite {
 		String SheetName = conf.getInputTCStepsSheetName();
 		String getDriver = conf.DriverToUse();
 		
-		//LogAnalyzer 
-		static LogAnalyzer LA = new LogAnalyzer();		
-		
-		//Global Variables
+		//Global Class Objects
+		LogAnalyzer LA = new LogAnalyzer();	
 		TestSteps RS = new TestSteps();
 		ArrayList StepsDetails = new ArrayList();
 		
 		
-		@BeforeClass
+		@Before
 		//Clean log files before start
-		public static void CleanLogFiles() {
+		public void CleanLogFiles() {
 		    try{
-		        BufferedWriter ReportLog = new BufferedWriter(new FileWriter("F:\\Automation\\Selenuim\\workspace\\HybridFramework\\OutputXL\\ResultLogs.log"));
+		/*        BufferedWriter ReportLog = new BufferedWriter(new FileWriter("/Users/ashv/Automation/workspace/HybridFramework/Logs/logs.log"));
 		        ReportLog.write("");
 		        ReportLog.flush();
-		        ReportLog.close();
-		/*       BufferedWriter SuiteLog = new BufferedWriter(new FileWriter("F:\\Automation\\Selenuim\\workspace\\HybridFramework\\Logs\\logs.log"));
+		        ReportLog.close(); */
+		       BufferedWriter SuiteLog = new BufferedWriter(new FileWriter("F:\\Automation\\Selenuim\\workspace\\HybridFramework\\Logs\\logs.log"));
 		        SuiteLog.write("");
 		        SuiteLog.flush();
-		        SuiteLog.close(); */
+		        SuiteLog.close(); 
 		    }catch(IOException ioe){
 		        // You should really do something more appropriate here
 		        ioe.printStackTrace();
@@ -103,7 +105,7 @@ public class RunSuite {
 				if(StepsDetails!=null) {
 				//Debug: System.out.println("Step Details " + StepsDetails.get(0));
 				String StepID = (String) StepIDs.get(i);
-				System.out.println("Step IDs" + StepID);	
+				System.out.println("Step IDs " + StepID);	
 				
 				log.info("Executing Test Step " + StepIDs.get(i));
 				AP.FormatSteps((ArrayList) StepsDetails.get(0), drivertoUse, StepID);
@@ -116,7 +118,7 @@ public class RunSuite {
 		
 		
 		//@AfterClass
-		@Test
+		@After
 		public void ReportGenerateTest() {
 			System.out.println("Generating Report");
 			try {
