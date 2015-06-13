@@ -13,6 +13,7 @@ public class DBExecuteQuery {
 	static final String LOG_PROPERTIES_FILE = "Configuration/log.properties";
 	
 	public ResultSet sqlQuery (Connection conn, String query) throws SQLException {
+		log.info("Step: Executing DB Query...");
 		Statement sta = conn.createStatement();
 		String Sql = query;
 		ResultSet rs = sta.executeQuery(Sql);
