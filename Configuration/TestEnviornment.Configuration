@@ -32,8 +32,10 @@ OutputFilePath=/Users/ashv/Automation/workspace/HybridFramework/OutputXL/Executi
 //Sample values same as for Input paths
 
 //Provide DB connection details, currently considering MS SQL 
+//DBServer name use MSSQL for Microsoft sql server and MySQL for mysql data base
+//Based on connection provide below details
+DBServer=MSSQL
 DBConnectionString=c2pin-lap-200
-DBName=SeleniumTest
 DBUserID=sa
 DBPassword=password
 
