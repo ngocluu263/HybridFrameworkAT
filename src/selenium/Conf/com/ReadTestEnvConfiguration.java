@@ -107,5 +107,21 @@ public class ReadTestEnvConfiguration implements ConfigurationInterface  {
 		return TCSteps;
 	}
 	
+	public String getDBConnectionString() {
+		String DBconnStr = conf_file.getProperty("DBConnectionString");
+		return DBconnStr;
+	}
 	
+	public String getDBUserID() {
+		String DBUsrID = conf_file.getProperty("DBUserID");
+		return DBUsrID;
+	}
+	
+	public String getPass() {
+		String DBPass = conf_file.getProperty("DBPassword");
+		return DBPass;
+	}
+
+
+
 }
