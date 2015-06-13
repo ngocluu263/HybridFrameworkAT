@@ -9,17 +9,19 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.LogManager;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import org.openqa.selenium.Alert;
 //Selenium libs
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
 import org.openqa.selenium.support.ui.Select;
 
-
-
+import selenium.DBVerification.com.DBConnection;
+import selenium.DBVerification.com.DBExecuteQuery;
 //Class libs
 import selenium.ObjectRepository.com.AjaxRequest;
 import selenium.ObjectRepository.com.KeyType;
@@ -317,6 +319,21 @@ public class ActionParser {
 		} 
 
 	}
+	
+	
+	public void DBName(String DBname, String query) throws ClassNotFoundException, SQLException {
+		
+		//Call to get DB connection
+		DBConnection DBConn = new DBConnection();
+		Connection conn = DBConn.DBconnectionStr(DBname);
+		
+		//Call to get DB query result
+		DBExecuteQuery exe = new DBExecuteQuery();
+		ResultSet result = exe.sqlQuery(conn, query);
+	}
+
+	
+	
 	
 	
 	} // End Class
