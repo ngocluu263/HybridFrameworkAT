@@ -41,6 +41,9 @@ public class ActionParser {
 	//Global Variables
 	WebElement Locator=null;
 	
+	//Global variable "result" to pass value from DBName function to VerifyQryResult
+	static ResultSet result;
+	
 	//Logging result details
 	static Logger log = Logger.getLogger(ActionParser.class.getName());
 	
@@ -275,10 +278,10 @@ public class ActionParser {
 	
 	public void VerifyURL(String locator, String ExpectedURL) {
 		//PropertyConfigurator.configure("Configuration/log.properties");
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 		String ActualURL = driver.getCurrentUrl();
-		System.out.println("Actual URL"  + ActualURL);
-		System.out.println("ExpectedValuel URL"  + ExpectedURL);
+		System.out.println("Actual URL "  + ActualURL);
+		System.out.println("ExpectedValuel URL "  + ExpectedURL);
 		
 		if(ActualURL.contains(ExpectedURL)) {
 			System.out.println("Label " + ExpectedURL + "Verified for steps ID "  + CurrentStepID);
@@ -320,7 +323,7 @@ public class ActionParser {
 
 	}
 	
-	
+
 	public void DBName(String DBname, String query) throws ClassNotFoundException, SQLException {
 		
 		//Call to get DB connection
@@ -329,10 +332,28 @@ public class ActionParser {
 		
 		//Call to get DB query result
 		DBExecuteQuery exe = new DBExecuteQuery();
-		ResultSet result = exe.sqlQuery(conn, query);
+		result = exe.sqlQuery(conn, query);
+		//Debug: System.out.println("Before value " + result);
+	}
+	
+	//Verify expect output in SQL query result
+	public void VerifyQryResult(String column, String DataToVerify) throws SQLException {
+		boolean flag=false;
+		//Debug: System.out.println("value in "  + result);
+		//Debug: System.out.println("value of column " + column);
+		while (result.next()) {
+			String verify = result.getString(column);
+			if(verify.contains(DataToVerify)) {
+				flag=true;
+			}
+		}
+		if(flag=true) {
+			log.info("Test Case " + CurrentStepID + " Pass");
+		} else {
+			log.info("Test Case " + CurrentStepID + " Fail");
+		}
 	}
 
-	
 	
 	
 	
