@@ -65,7 +65,7 @@ public class RunSuite {
 		        ReportLog.write("");
 		        ReportLog.flush();
 		        ReportLog.close(); */
-		       BufferedWriter SuiteLog = new BufferedWriter(new FileWriter("F:\\Automation\\Selenuim\\workspace\\HybridFramework\\Logs\\logs.log"));
+		       BufferedWriter SuiteLog = new BufferedWriter(new FileWriter("G:\\1.Projects\\Archived\\Automation_Framework\\Java_framwork\\HybridFrameworkAT\\Logs\\logs.log"));
 		        SuiteLog.write("");
 		        SuiteLog.flush();
 		        SuiteLog.close(); 

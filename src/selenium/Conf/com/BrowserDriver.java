@@ -25,7 +25,7 @@ public class BrowserDriver {
 				//MAC
 				//System.setProperty("webdriver.chrome.driver", "/Users/ashv/Automation/workspace/HybridFramework/BrowserDrivers/ChromeMac/chromedriver");
 				//WIN
-				System.setProperty("webdriver.chrome.driver", "F:\\Automation\\Selenuim\\workspace\\HybridFramework\\BrowserDrivers\\ChromeWin\\chromedriver.exe");
+				System.setProperty("webdriver.chrome.driver", "G:\\1.Projects\\Archived\\Automation_Framework\\Java_framwork\\HybridFrameworkAT\\BrowserDrivers\\ChromeWin\\chromedriver.exe");
 				driverOpted = new ChromeDriver();
 			}
 			else if(ConfDriver.equals("firefox")) {
